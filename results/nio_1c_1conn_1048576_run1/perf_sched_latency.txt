@@ -1,0 +1,33 @@
+
+ -------------------------------------------------------------------------------------------------------------------------------------------
+  Task                  |   Runtime ms  |  Count   | Avg delay ms    | Max delay ms    | Max delay start           | Max delay end          |
+ -------------------------------------------------------------------------------------------------------------------------------------------
+  :151615:151615        |      0.002 ms |        1 | avg:16666.528 ms | max:16666.528 ms | max start: 15591.677420 s | max end: 15608.343948 s
+  :151421:151421        |      0.003 ms |        1 | avg:3457.715 ms | max:3457.715 ms | max start: 15597.943278 s | max end: 15601.400994 s
+  VM Thread:151261      |      0.877 ms |       15 | avg:   0.087 ms | max:   1.068 ms | max start: 15620.849851 s | max end: 15620.850920 s
+  C2 CompilerThre:151267 |      1.794 ms |      187 | avg:   0.086 ms | max:   3.607 ms | max start: 15620.745421 s | max end: 15620.749028 s
+  pool-1-thread-1:151271 |     30.965 ms |      116 | avg:   0.028 ms | max:   0.260 ms | max start: 15601.343948 s | max end: 15601.344208 s
+  C1 CompilerThre:151268 |     22.447 ms |      181 | avg:   0.020 ms | max:   0.240 ms | max start: 15620.744997 s | max end: 15620.745237 s
+  VM Periodic Tas:151260 |     20.144 ms |       10 | avg:   0.015 ms | max:   0.065 ms | max start: 15619.943984 s | max end: 15619.944049 s
+  Signal Dispatch:151264 |      0.001 ms |        3 | avg:   0.014 ms | max:   0.032 ms | max start: 15591.670098 s | max end: 15591.670131 s
+  Service Thread:151265 |      0.108 ms |       10 | avg:   0.009 ms | max:   0.019 ms | max start: 15620.849735 s | max end: 15620.849755 s
+  java:(2)              |      0.038 ms |        4 | avg:   0.008 ms | max:   0.016 ms | max start: 15591.670133 s | max end: 15591.670149 s
+  Notification Th:151269 |      0.005 ms |        3 | avg:   0.007 ms | max:   0.009 ms | max start: 15591.670072 s | max end: 15591.670081 s
+  Common-Cleaner:151270 |      0.004 ms |        3 | avg:   0.006 ms | max:   0.007 ms | max start: 15591.670068 s | max end: 15591.670075 s
+  :11:11                |      0.000 ms |        1 | avg:   0.005 ms | max:   0.005 ms | max start: 15593.643806 s | max end: 15593.643811 s
+  Monitor Deflati:151266 |      3.936 ms |        2 | avg:   0.004 ms | max:   0.006 ms | max start: 15591.669989 s | max end: 15591.669995 s
+  Reference Handl:151262 |      0.005 ms |        3 | avg:   0.004 ms | max:   0.005 ms | max start: 15591.669964 s | max end: 15591.669969 s
+  Finalizer:151263      |      0.004 ms |        3 | avg:   0.004 ms | max:   0.006 ms | max start: 15591.669969 s | max end: 15591.669976 s
+  :151434:151434        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :151431:151431        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :151426:151426        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :151423:151423        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :151422:151422        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :151357:151357        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :151356:151356        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :151323:151323        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+ -----------------------------------------------------------------------------------------------------------------
+  TOTAL:                |     80.334 ms |      551 |
+ ---------------------------------------------------
+  INFO: 91.851% context switch bugs (5354 out of 5829)
+
