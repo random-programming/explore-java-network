@@ -1,0 +1,99 @@
+
+ -------------------------------------------------------------------------------------------------------------------------------------------
+  Task                  |   Runtime ms  |  Count   | Avg delay ms    | Max delay ms    | Max delay start           | Max delay end          |
+ -------------------------------------------------------------------------------------------------------------------------------------------
+  :587113:587113        |      0.000 ms |        1 | avg:7821.704 ms | max:7821.704 ms | max start: 54450.936078 s | max end: 54458.757782 s
+  :26:26                |      0.000 ms |        1 | avg:3495.403 ms | max:3495.403 ms | max start: 54445.167460 s | max end: 54448.662863 s
+  :587189:587189        |      0.394 ms |        1 | avg:2860.935 ms | max:2860.935 ms | max start: 54433.693859 s | max end: 54436.554793 s
+  :32:32                |      0.000 ms |        1 | avg:2195.286 ms | max:2195.286 ms | max start: 54445.660956 s | max end: 54447.856242 s
+  :21:21                |      0.000 ms |        1 | avg: 751.967 ms | max: 751.967 ms | max start: 54440.916859 s | max end: 54441.668825 s
+  :587199:587199        |      0.796 ms |        1 | avg: 648.337 ms | max: 648.337 ms | max start: 54436.056798 s | max end: 54436.705135 s
+  :587434:587434        |      0.027 ms |        1 | avg:   9.717 ms | max:   9.717 ms | max start: 54440.546460 s | max end: 54440.556176 s
+  Finalizer:586982      |      0.014 ms |        2 | avg:   0.342 ms | max:   0.674 ms | max start: 54440.546266 s | max end: 54440.546940 s
+  GC Thread#2:586992    |      0.010 ms |        2 | avg:   0.327 ms | max:   0.645 ms | max start: 54440.546326 s | max end: 54440.546970 s
+  GC Thread#0:586974    |      0.033 ms |        1 | avg:   0.296 ms | max:   0.296 ms | max start: 54440.546220 s | max end: 54440.546515 s
+  G1 Refine#0:586977    |      0.019 ms |        1 | avg:   0.247 ms | max:   0.247 ms | max start: 54440.546237 s | max end: 54440.546484 s
+  G1 Conc#0:586976      |      0.035 ms |        1 | avg:   0.243 ms | max:   0.243 ms | max start: 54440.546232 s | max end: 54440.546475 s
+  Signal Dispatch:586983 |      0.013 ms |        3 | avg:   0.236 ms | max:   0.677 ms | max start: 54440.546273 s | max end: 54440.546950 s
+  Notification Th:586988 |      0.017 ms |        3 | avg:   0.229 ms | max:   0.656 ms | max start: 54440.546304 s | max end: 54440.546960 s
+  GC Thread#1:586991    |      0.024 ms |        1 | avg:   0.139 ms | max:   0.139 ms | max start: 54440.546320 s | max end: 54440.546460 s
+  Common-Cleaner:586989 |      0.028 ms |        2 | avg:   0.128 ms | max:   0.214 ms | max start: 54440.546315 s | max end: 54440.546528 s
+  GC Thread#3:586993    |      0.016 ms |        2 | avg:   0.112 ms | max:   0.219 ms | max start: 54440.546331 s | max end: 54440.546551 s
+  Reference Handl:586981 |      0.037 ms |        3 | avg:   0.097 ms | max:   0.144 ms | max start: 54440.546260 s | max end: 54440.546405 s
+  pool-1-thread-1:586994 |     40.318 ms |       32 | avg:   0.076 ms | max:   0.698 ms | max start: 54435.757569 s | max end: 54435.758267 s
+  VM Thread:586980      |      2.158 ms |        5 | avg:   0.058 ms | max:   0.209 ms | max start: 54440.546254 s | max end: 54440.546463 s
+  G1 Main Marker:586975 |      0.031 ms |        2 | avg:   0.046 ms | max:   0.086 ms | max start: 54440.546452 s | max end: 54440.546538 s
+  G1 Service:586978     |      1.943 ms |        3 | avg:   0.038 ms | max:   0.072 ms | max start: 54442.659571 s | max end: 54442.659643 s
+  :587035:587035        |      0.000 ms |        1 | avg:   0.035 ms | max:   0.035 ms | max start: 54444.456831 s | max end: 54444.456866 s
+  C2 CompilerThre:586986 |      2.439 ms |       44 | avg:   0.030 ms | max:   0.152 ms | max start: 54440.546290 s | max end: 54440.546442 s
+  java:(2)              |      0.064 ms |        3 | avg:   0.030 ms | max:   0.065 ms | max start: 54440.546211 s | max end: 54440.546276 s
+  C1 CompilerThre:586987 |     25.356 ms |       48 | avg:   0.026 ms | max:   0.105 ms | max start: 54449.257783 s | max end: 54449.257888 s
+  Service Thread:586984 |      0.283 ms |        1 | avg:   0.019 ms | max:   0.019 ms | max start: 54440.546583 s | max end: 54440.546602 s
+  Monitor Deflati:586985 |      6.921 ms |        1 | avg:   0.014 ms | max:   0.014 ms | max start: 54440.546482 s | max end: 54440.546496 s
+  :18:18                |      0.000 ms |        1 | avg:   0.007 ms | max:   0.007 ms | max start: 54440.573684 s | max end: 54440.573692 s
+  :587361:587361        |      0.000 ms |        1 | avg:   0.007 ms | max:   0.007 ms | max start: 54438.656825 s | max end: 54438.656832 s
+  VM Periodic Tas:586979 |     34.102 ms |        1 | avg:   0.005 ms | max:   0.005 ms | max start: 54440.546448 s | max end: 54440.546453 s
+  :27:27                |      0.000 ms |        1 | avg:   0.005 ms | max:   0.005 ms | max start: 54444.662754 s | max end: 54444.662759 s
+  :33:33                |      0.000 ms |        1 | avg:   0.005 ms | max:   0.005 ms | max start: 54442.389726 s | max end: 54442.389732 s
+  :39:39                |      0.000 ms |        1 | avg:   0.004 ms | max:   0.004 ms | max start: 54433.456630 s | max end: 54433.456634 s
+  :17:17                |      0.000 ms |        1 | avg:   0.003 ms | max:   0.003 ms | max start: 54444.157746 s | max end: 54444.157750 s
+  :587049:587049        |      4.961 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587180:587180        |      4.358 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587171:587171        |      3.833 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587177:587177        |      3.435 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587167:587167        |      3.391 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587169:587169        |      3.203 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587170:587170        |      3.074 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587174:587174        |      2.940 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587175:587175        |      2.434 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587166:587166        |      2.228 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587178:587178        |      2.182 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587172:587172        |      1.932 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587173:587173        |      1.507 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587176:587176        |      1.303 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587165:587165        |      0.996 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587168:587168        |      0.752 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587192:587192        |      0.677 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587203:587203        |      0.665 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587182:587182        |      0.498 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587186:587186        |      0.438 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587179:587179        |      0.402 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587204:587204        |      0.385 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587196:587196        |      0.356 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587202:587202        |      0.341 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587193:587193        |      0.316 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587188:587188        |      0.311 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587191:587191        |      0.283 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587197:587197        |      0.280 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587195:587195        |      0.271 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587198:587198        |      0.262 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587200:587200        |      0.262 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587201:587201        |      0.147 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587181:587181        |      0.027 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587342:587342        |      0.013 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587360:587360        |      0.005 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587428:587428        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587392:587392        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587390:587390        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587382:587382        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587363:587363        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587345:587345        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587344:587344        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587343:587343        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587339:587339        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587338:587338        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587337:587337        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587336:587336        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587290:587290        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587111:587111        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :587022:587022        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :586999:586999        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :421299:421299        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :411459:411459        |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :38:38                |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :2460:2460            |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+ -----------------------------------------------------------------------------------------------------------------
+  TOTAL:                |    163.547 ms |      230 |
+ ---------------------------------------------------
+  INFO: 97.928% context switch bugs (4867 out of 4970)
+
