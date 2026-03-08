@@ -1,0 +1,35 @@
+
+ -------------------------------------------------------------------------------------------------------------------------------------------
+  Task                  |   Runtime ms  |  Count   | Avg delay ms    | Max delay ms    | Max delay start           | Max delay end          |
+ -------------------------------------------------------------------------------------------------------------------------------------------
+  :21:21                |      0.000 ms |        1 | avg:2444.365 ms | max:2444.365 ms | max start: 225359.592903 s | max end: 225362.037269 s
+  :1329209:1329209      |      0.000 ms |        1 | avg:1304.460 ms | max:1304.460 ms | max start: 225357.488655 s | max end: 225358.793115 s
+  Common-Cleaner:1328804 |      0.017 ms |        1 | avg:   1.815 ms | max:   1.815 ms | max start: 225363.571608 s | max end: 225363.573423 s
+  Finalizer:1328797     |      0.024 ms |        4 | avg:   0.462 ms | max:   1.000 ms | max start: 225363.572430 s | max end: 225363.573431 s
+  G1 Service:1328793    |      0.361 ms |       10 | avg:   0.328 ms | max:   2.391 ms | max start: 225363.566989 s | max end: 225363.569381 s
+  VM Thread:1328795     |      0.463 ms |        5 | avg:   0.195 ms | max:   0.944 ms | max start: 225363.570503 s | max end: 225363.571447 s
+  C2 CompilerThre:1328801 |     12.371 ms |      208 | avg:   0.058 ms | max:   0.918 ms | max start: 225363.555518 s | max end: 225363.556436 s
+  C1 CompilerThre:1328802 |     21.937 ms |      103 | avg:   0.051 ms | max:   2.828 ms | max start: 225363.561834 s | max end: 225363.564662 s
+  pool-1-thread-1:1328806 |     14.846 ms |       71 | avg:   0.044 ms | max:   1.807 ms | max start: 225363.562867 s | max end: 225363.564674 s
+  java:(2)              |     27.234 ms |      115 | avg:   0.037 ms | max:   1.106 ms | max start: 225363.564818 s | max end: 225363.565923 s
+  GC Thread#0:1328789   |      0.024 ms |        2 | avg:   0.032 ms | max:   0.050 ms | max start: 225363.571617 s | max end: 225363.571666 s
+  G1 Conc#0:1328791     |      0.019 ms |        3 | avg:   0.029 ms | max:   0.054 ms | max start: 225363.571619 s | max end: 225363.571673 s
+  Monitor Deflati:1328800 |      1.317 ms |        2 | avg:   0.024 ms | max:   0.037 ms | max start: 225363.571600 s | max end: 225363.571636 s
+  GC Thread#1:1328805   |      0.010 ms |        2 | avg:   0.024 ms | max:   0.043 ms | max start: 225363.571610 s | max end: 225363.571653 s
+  Reference Handl:1328796 |      0.021 ms |        4 | avg:   0.022 ms | max:   0.046 ms | max start: 225363.571633 s | max end: 225363.571679 s
+  G1 Main Marker:1328790 |      0.151 ms |        7 | avg:   0.009 ms | max:   0.030 ms | max start: 225363.570443 s | max end: 225363.570474 s
+  Service Thread:1328799 |      0.056 ms |       16 | avg:   0.008 ms | max:   0.032 ms | max start: 225363.571598 s | max end: 225363.571630 s
+  :26:26                |      0.000 ms |        1 | avg:   0.008 ms | max:   0.008 ms | max start: 225357.487054 s | max end: 225357.487062 s
+  Notification Th:1328803 |      0.017 ms |        2 | avg:   0.007 ms | max:   0.007 ms | max start: 225357.487201 s | max end: 225357.487208 s
+  VM Periodic Tas:1328794 |      7.147 ms |       11 | avg:   0.006 ms | max:   0.015 ms | max start: 225363.564743 s | max end: 225363.564759 s
+  Logging-Cleaner:1329225 |      0.237 ms |       17 | avg:   0.006 ms | max:   0.014 ms | max start: 225363.564755 s | max end: 225363.564769 s
+  G1 Refine#0:1328792   |      9.790 ms |        4 | avg:   0.005 ms | max:   0.008 ms | max start: 225363.565926 s | max end: 225363.565933 s
+  Signal Dispatch:1328798 |      0.243 ms |        6 | avg:   0.004 ms | max:   0.008 ms | max start: 225363.570424 s | max end: 225363.570432 s
+  :1328830:1328830      |      0.005 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :1329138:1329138      |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+  :1329117:1329117      |      0.000 ms |        1 | avg:   0.000 ms | max:   0.000 ms | max start:     0.000000 s | max end:     0.000000 s
+ -----------------------------------------------------------------------------------------------------------------
+  TOTAL:                |     96.291 ms |      599 |
+ ---------------------------------------------------
+  INFO: 85.309% context switch bugs (3304 out of 3873)
+
