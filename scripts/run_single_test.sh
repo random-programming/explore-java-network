@@ -63,8 +63,9 @@ case "$MODEL" in
     nio)      SERVER_MODULE="servers:nio-server" ;;
     epoll)    SERVER_MODULE="servers:epoll-server" ;;
     iouring)  SERVER_MODULE="servers:iouring-server" ;;
+    iouring-ffm) SERVER_MODULE="servers:iouring-ffm-demo" ;;
     *)
-        echo "Unknown model: $MODEL (use blocking, nio, epoll, iouring)"
+        echo "Unknown model: $MODEL (use blocking, nio, epoll, iouring, iouring-ffm)"
         exit 1
         ;;
 esac

@@ -1,0 +1,26 @@
+strace: Process 1374640 attached with 22 threads
+strace: Process 1375084 attached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 90.50    0.122146         116      1046       302 futex
+  0.72    0.000975          13        75           write
+  0.00    0.000000           0        74           pread64
+  0.00    0.000002           0        41           read
+  0.00    0.000002           0        22           lseek
+  4.26    0.005750         302        19           epoll_wait
+  0.02    0.000025           1        18           mmap
+  2.82    0.003807         237        16           rt_sigprocmask
+  0.01    0.000019           2         7           madvise
+  0.00    0.000006           0         7           getrusage
+  0.15    0.000200          28         7         5 restart_syscall
+  0.00    0.000000           0         3           close
+  0.00    0.000001           0         2           gettid
+  0.00    0.000000           0         2           sched_getaffinity
+  0.00    0.000000           0         1           mprotect
+  0.00    0.000003           3         1           unlink
+  0.00    0.000001           1         1           prctl
+  0.00    0.000000           0         1           set_robust_list
+  0.00    0.000001           1         1           rseq
+  1.50    0.002027        2027         1           clone3
+------ ----------- ----------- --------- --------- ------------------
+100.00    0.134965         100      1345       307 total

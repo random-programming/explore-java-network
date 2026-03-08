@@ -1,0 +1,23 @@
+strace: Process 1280005 attached with 14 threads
+strace: Process 1280045 detached
+strace: Process 1280049 detached
+strace: Process 1280048 detached
+strace: Process 1280047 detached
+strace: Process 1280046 detached
+strace: Process 1280044 detached
+strace: Process 1280043 detached
+strace: Process 1280042 detached
+strace: Process 1280041 detached
+strace: Process 1280040 detached
+strace: Process 1280039 detached
+strace: Process 1280038 detached
+strace: Process 1280037 detached
+strace: Process 1280005 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 99.86    0.116741          47      2465      1067 futex
+  0.12    0.000142          23         6         4 restart_syscall
+  0.02    0.000026          26         1           mmap
+  0.00    0.000001           1         1           gettid
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.116910          47      2473      1071 total
