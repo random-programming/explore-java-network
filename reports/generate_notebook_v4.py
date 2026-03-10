@@ -1049,13 +1049,12 @@ if 'throughput' in data and 'latency' in data and 'memory' in data:
     for idx, size in enumerate(ALL_SIZES):
         ax = axes[idx // 4][idx % 4]
         subset = tp_1c[(tp_1c['cores'] == 4) & (tp_1c['data_size'] == size)]
-        if subset.empty:
-            ax.set_title(SIZE_LABELS[size])
-            continue
-        models_present = [m for m in MODELS if m in subset['model'].values]
-        vals = [subset[subset['model'] == m]['throughput_rps'].values[0] for m in models_present]
-        colors = [MODEL_COLORS[m] for m in models_present]
-        labels = [MODEL_SHORT[m] for m in models_present]
+        vals = []
+        for m in MODELS:
+            row = subset[subset['model'] == m]
+            vals.append(row['throughput_rps'].values[0] if not row.empty else 0)
+        colors = [MODEL_COLORS[m] for m in MODELS]
+        labels = [MODEL_SHORT[m] for m in MODELS]
         bars = ax.bar(range(len(vals)), vals, color=colors, alpha=0.85)
         ax.set_xticks(range(len(labels)))
         ax.set_xticklabels(labels, fontsize=8, rotation=30)
@@ -1074,13 +1073,12 @@ if 'throughput' in data and 'latency' in data and 'memory' in data:
     for idx, size in enumerate(ALL_SIZES):
         ax = axes[idx // 4][idx % 4]
         subset = lat_1c[(lat_1c['cores'] == 4) & (lat_1c['data_size'] == size)]
-        if subset.empty:
-            ax.set_title(SIZE_LABELS[size])
-            continue
-        models_present = [m for m in MODELS if m in subset['model'].values]
-        vals = [subset[subset['model'] == m]['p99_us'].values[0] for m in models_present]
-        colors = [MODEL_COLORS[m] for m in models_present]
-        labels = [MODEL_SHORT[m] for m in models_present]
+        vals = []
+        for m in MODELS:
+            row = subset[subset['model'] == m]
+            vals.append(row['p99_us'].values[0] if not row.empty else 0)
+        colors = [MODEL_COLORS[m] for m in MODELS]
+        labels = [MODEL_SHORT[m] for m in MODELS]
         bars = ax.bar(range(len(vals)), vals, color=colors, alpha=0.85)
         ax.set_xticks(range(len(labels)))
         ax.set_xticklabels(labels, fontsize=8, rotation=30)
@@ -1287,13 +1285,12 @@ r"""if 'throughput' in data and 'latency' in data and 'memory' in data:
     for idx, size in enumerate(ALL_SIZES):
         ax = axes[idx // 4][idx % 4]
         subset = tp_agg[tp_agg['data_size'] == size]
-        models_present = [m for m in MODELS if m in subset['model'].values]
-        if not models_present:
-            ax.set_title(SIZE_LABELS[size])
-            continue
-        vals = [subset[subset['model'] == m]['throughput_rps'].values[0] for m in models_present]
-        colors = [MODEL_COLORS[m] for m in models_present]
-        labels = [MODEL_SHORT[m] for m in models_present]
+        vals = []
+        for m in MODELS:
+            row = subset[subset['model'] == m]
+            vals.append(row['throughput_rps'].values[0] if not row.empty else 0)
+        colors = [MODEL_COLORS[m] for m in MODELS]
+        labels = [MODEL_SHORT[m] for m in MODELS]
         bars = ax.bar(range(len(vals)), vals, color=colors, alpha=0.85)
         ax.set_xticks(range(len(labels)))
         ax.set_xticklabels(labels, fontsize=7, rotation=30)
@@ -1312,13 +1309,12 @@ r"""if 'throughput' in data and 'latency' in data and 'memory' in data:
     for idx, size in enumerate(ALL_SIZES):
         ax = axes[idx // 4][idx % 4]
         subset = lat_agg[lat_agg['data_size'] == size]
-        models_present = [m for m in MODELS if m in subset['model'].values]
-        if not models_present:
-            ax.set_title(SIZE_LABELS[size])
-            continue
-        vals = [subset[subset['model'] == m]['p99_us'].values[0] for m in models_present]
-        colors = [MODEL_COLORS[m] for m in models_present]
-        labels = [MODEL_SHORT[m] for m in models_present]
+        vals = []
+        for m in MODELS:
+            row = subset[subset['model'] == m]
+            vals.append(row['p99_us'].values[0] if not row.empty else 0)
+        colors = [MODEL_COLORS[m] for m in MODELS]
+        labels = [MODEL_SHORT[m] for m in MODELS]
         bars = ax.bar(range(len(vals)), vals, color=colors, alpha=0.85)
         ax.set_xticks(range(len(labels)))
         ax.set_xticklabels(labels, fontsize=7, rotation=30)
@@ -1334,13 +1330,12 @@ r"""if 'throughput' in data and 'latency' in data and 'memory' in data:
     for idx, size in enumerate(ALL_SIZES):
         ax = axes[idx // 4][idx % 4]
         subset = mem_agg[mem_agg['data_size'] == size]
-        models_present = [m for m in MODELS if m in subset['model'].values]
-        if not models_present:
-            ax.set_title(SIZE_LABELS[size])
-            continue
-        vals = [subset[subset['model'] == m]['rss_mb'].values[0] for m in models_present]
-        colors = [MODEL_COLORS[m] for m in models_present]
-        labels = [MODEL_SHORT[m] for m in models_present]
+        vals = []
+        for m in MODELS:
+            row = subset[subset['model'] == m]
+            vals.append(row['rss_mb'].values[0] if not row.empty else 0)
+        colors = [MODEL_COLORS[m] for m in MODELS]
+        labels = [MODEL_SHORT[m] for m in MODELS]
         bars = ax.bar(range(len(vals)), vals, color=colors, alpha=0.85)
         ax.set_xticks(range(len(labels)))
         ax.set_xticklabels(labels, fontsize=7, rotation=30)
