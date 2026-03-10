@@ -283,3 +283,83 @@ Acceptor (main thread)         Worker 0..N-1 (каждый свой поток)
     ├── IoUringRing.java          (ring abstraction)
     └── WorkerThread.java         (worker event loop)
 ```
+
+---
+
+## Сессия: Исправление бага и добавление SQPOLL (2026-03-09)
+
+### 1. Исправлен баг потери 15-20% соединений
+
+**Причина:** Worker блокировался в `waitForCompletions(1)` и не проверял новые fd от acceptor'а. Новые соединения лежали в `ConcurrentLinkedQueue`, клиент слал данные, но recv не был поставлен — timeout.
+
+**Исправления в WorkerThread.java:**
+- Event loop переделан: сначала неблокирующий `peekCompletions()`, потом обработка CQE, потом `drainNewFds()` — блокирующий `waitForCompletions(1)` только когда нечего делать
+- `drainNewFds()` теперь возвращает boolean (были ли новые fd)
+- Проверка `connections.isEmpty()` учитывает `drained` флаг
+
+**Исправления в IoUringRing.java:**
+- Добавлен `peekCompletions()` — неблокирующий вызов `io_uring_enter(0, 0, GETEVENTS)` через `ioUringEnterRaw`
+- `forEachCqe()` теперь возвращает boolean (были ли CQE)
+
+**Исправления в IoUringFfmMtServer.java (acceptor):**
+- Re-arm accept вынесен за пределы `forEachCqe` (один re-arm после всех CQE, а не внутри цикла)
+- Добавлен warning при `getSqe() == null` (SQ full)
+
+**Тест:** 70/70 запросов без потерь (30 sequential + 8 размеров x 5)
+
+### 2. Добавлен SQPOLL
+
+**Изменения в IoUringRing.java:**
+- Новый factory: `IoUringRing.createSqpoll(arena, entries, sqIdleMs)`
+- Поля: `sqpollEnabled`, `sqFlagsOff`, `localTail`
+- `getSqe()` в SQPOLL-режиме: использует `localTail` (не пишет в shared memory), `loadLoadFence()` перед чтением head
+- `submit()` в SQPOLL-режиме: `storeStoreFence()` → пишет tail → `storeStoreFence()` → проверяет `IORING_SQ_NEED_WAKEUP` → будит kernel thread через `ioUringEnterRaw(IORING_ENTER_SQ_WAKEUP)`
+- `forEachCqe()`: добавлены `loadLoadFence()`/`storeStoreFence()` для корректного чтения CQ ring
+- `isSqpoll()` getter
+
+**Изменения в WorkerThread.java:**
+- Константы `USE_SQPOLL = true`, `SQPOLL_IDLE_MS = 1000`
+- `setupRingAndBuffers()`: создаёт ring через `IoUringRing.createSqpoll()` если `USE_SQPOLL`
+
+**Тест:** 70/70 запросов без потерь с SQPOLL включённым
+
+**Бэкапы:** версия без SQPOLL сохранена в `.bak` файлах (не в git)
+
+### 3. Очистка системы
+
+- Убиты 6 зависших FFM-MT серверов из предыдущих сессий (~2.4 GB RAM)
+- Убиты 9 старых Gradle daemon'ов (~5 GB RAM)
+- Освобождено ~9 GB RAM (было 1.1 GB free → стало 10 GB free)
+- SSH-туннели и второй claude не тронуты
+
+### 4. Создана документация v4
+
+**methodology_v4.md (14 страниц PDF):**
+- 6 моделей (добавлена iouring-ffm-mt)
+- Раздел «Изменения относительно v3» — объясняет зачем FFM-MT
+- Тройная таблица «io_uring JNI vs FFM vs FFM-MT» (SQPOLL, fixed buffers, потоковая модель)
+- Архитектурная схема FFM-MT (acceptor + workers + SQPOLL)
+- Таблица оптимизаций FFM-MT (6 пунктов) и нереализованных функций (3 пункта)
+- Таблица особенностей сбора метрик (3 колонки: Netty / FFM / FFM-MT)
+- 1440 тестов (6 x 240)
+- Новые секции в notebook: FFM-MT vs JNI deep dive, SQPOLL analysis
+
+**md_to_pdf_v4.py** — конвертер MD → PDF (тот же стиль что v3)
+
+### 5. Git push
+
+- Коммит: `19e0f85` на `main`
+- 11 файлов, 1991 строк добавлено:
+  - `docs/methodology_v4.md`, `docs/methodology_v4.pdf`, `docs/md_to_pdf_v4.py`
+  - `servers/iouring-ffm-mt/` (4 Java-файла + build.gradle.kts)
+  - `settings.gradle.kts` (добавлен include)
+  - `scripts/run_single_test.sh` (добавлен case)
+  - `session_log_new.md`
+- Push на `git@github.com:random-programming/explore-java-network.git`
+
+### Следующие шаги
+
+1. **Создать скрипт `run_ffm_mt_benchmarks.sh`** — аналог `run_ffm_benchmarks.sh` для модели `iouring-ffm-mt`
+2. **Полный прогон 240 тестов FFM-MT через tmux** (~4-5 часов)
+3. **Создать `generate_notebook_v4.py`** — notebook с 6 моделями
+4. **Обновить отчёт v4** — добавить результаты FFM-MT, deep dive графики
