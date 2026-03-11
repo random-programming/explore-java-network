@@ -1,0 +1,102 @@
+strace: Process 2305856 attached with 62 threads
+strace: Process 2306304 attached
+strace: Process 2306305 attached
+strace: Process 2306315 attached
+strace: Process 2306317 attached
+strace: Process 2306318 attached
+strace: Process 2306055 detached
+strace: Process 2306057 detached
+strace: Process 2306056 detached
+strace: Process 2306054 detached
+strace: Process 2306053 detached
+strace: Process 2306052 detached
+strace: Process 2306051 detached
+strace: Process 2306050 detached
+strace: Process 2306049 detached
+strace: Process 2306048 detached
+strace: Process 2306047 detached
+strace: Process 2306046 detached
+strace: Process 2306045 detached
+strace: Process 2306044 detached
+strace: Process 2306043 detached
+strace: Process 2306042 detached
+strace: Process 2306036 detached
+strace: Process 2306032 detached
+strace: Process 2306031 detached
+strace: Process 2306030 detached
+strace: Process 2306029 detached
+strace: Process 2306028 detached
+strace: Process 2306027 detached
+strace: Process 2306026 detached
+strace: Process 2306025 detached
+strace: Process 2306024 detached
+strace: Process 2306023 detached
+strace: Process 2306022 detached
+strace: Process 2306021 detached
+strace: Process 2306020 detached
+strace: Process 2306019 detached
+strace: Process 2306018 detached
+strace: Process 2305888 detached
+strace: Process 2305887 detached
+strace: Process 2305885 detached
+strace: Process 2305884 detached
+strace: Process 2305883 detached
+strace: Process 2305882 detached
+strace: Process 2305881 detached
+strace: Process 2305880 detached
+strace: Process 2305879 detached
+strace: Process 2305878 detached
+strace: Process 2305877 detached
+strace: Process 2305876 detached
+strace: Process 2305875 detached
+strace: Process 2305874 detached
+strace: Process 2305873 detached
+strace: Process 2305872 detached
+strace: Process 2305871 detached
+strace: Process 2305870 detached
+strace: Process 2305869 detached
+strace: Process 2305868 detached
+strace: Process 2305867 detached
+strace: Process 2305866 detached
+strace: Process 2305865 detached
+strace: Process 2305864 detached
+strace: Process 2305863 detached
+strace: Process 2305862 detached
+strace: Process 2305861 detached
+strace: Process 2305860 detached
+strace: Process 2305859 detached
+strace: Process 2305856 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 15.33  121.927304          52   2326447        29 read
+ 78.61  625.321732        5935    105346       964 futex
+  0.69    5.468973          53    102648           fcntl
+  0.48    3.781012          55     68432           getsockname
+  0.48    3.836686          56     68424       393 write
+  0.23    1.820941          53     34217           close
+  0.23    1.852965          54     34216       393 shutdown
+  0.23    1.808830          52     34216           setsockopt
+  0.20    1.626022          47     34216           getsockopt
+  0.25    1.984146          57     34215           accept
+  0.01    0.045649          74       612           mprotect
+  0.00    0.016264          35       463           rt_sigprocmask
+  0.00    0.013982          33       423       393 rt_sigreturn
+  0.00    0.002969          34        87           gettid
+  0.00    0.001269          40        31           getrusage
+  2.56   20.369014      814760        25           poll
+  0.00    0.002742         195        14           madvise
+  0.00    0.000993          76        13           sched_getaffinity
+  0.00    0.000582          58        10           mmap
+  0.71    5.624767      937461         6         6 restart_syscall
+  0.00    0.000205          34         6           clock_nanosleep
+  0.00    0.001109         221         5           sched_yield
+  0.00    0.000291          58         5           prctl
+  0.00    0.000345          69         5         4 openat
+  0.00    0.000292          58         5           set_robust_list
+  0.00    0.000266          53         5           rseq
+  0.00    0.008788        1757         5           clone3
+  0.00    0.000140          35         4           pread64
+  0.00    0.000116          58         2           sysinfo
+  0.00    0.000062          62         1           fstat
+------ ----------- ----------- --------- --------- ------------------
+100.00  795.518456         279   2844104      2182 total

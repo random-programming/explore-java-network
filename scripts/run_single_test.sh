@@ -34,7 +34,8 @@ PAUSE="${9:-5}"
 MAX_TEST_TIME="${10:-120}"  # Safety timeout per test (seconds)
 
 BENCHMARK_DIR="/ssd/benchmark"
-RESULTS_DIR="$BENCHMARK_DIR/results/${MODEL}_${CPU_CONFIG}_${CONNECTIONS}conn_${DATA_SIZE}_run${RUN_NUMBER}"
+RESULTS_BASE="${RESULTS_BASE_DIR:-$BENCHMARK_DIR/results}"
+RESULTS_DIR="$RESULTS_BASE/${MODEL}_${CPU_CONFIG}_${CONNECTIONS}conn_${DATA_SIZE}_run${RUN_NUMBER}"
 mkdir -p "$RESULTS_DIR"
 
 # Determine CPU pinning
@@ -107,7 +108,12 @@ echo "Client PID: $CLIENT_PID"
 # Start metrics collector (skip warmup, measure only active phase)
 echo "Starting metrics collector..."
 sleep "$WARMUP"
-"$BENCHMARK_DIR/scripts/collect_metrics.sh" "$SERVER_PID" "$CLIENT_PID" "$DURATION" "$RESULTS_DIR" &
+# Disable strace for FFM models — ptrace attachment crashes io_uring FFM servers
+NO_STRACE=""
+case "$MODEL" in
+    iouring-ffm|iouring-ffm-mt) NO_STRACE="1" ;;
+esac
+"$BENCHMARK_DIR/scripts/collect_metrics.sh" "$SERVER_PID" "$CLIENT_PID" "$DURATION" "$RESULTS_DIR" "$PORT" "$NO_STRACE" &
 COLLECTOR_PID=$!
 
 # Wait for client to finish, with safety timeout
