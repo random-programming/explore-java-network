@@ -16,6 +16,7 @@ public class MetricsCollector {
     private final long clientPid;
     private final int durationSeconds;
     private final Path outputDir;
+    private final boolean noStrace;
     private volatile boolean running = true;
 
     // Collected data
@@ -24,11 +25,12 @@ public class MetricsCollector {
     private final List<MemorySnapshot> memSnapshots = new ArrayList<>();
     private final List<FdSnapshot> fdSnapshots = new ArrayList<>();
 
-    public MetricsCollector(long serverPid, long clientPid, int durationSeconds, Path outputDir) {
+    public MetricsCollector(long serverPid, long clientPid, int durationSeconds, Path outputDir, boolean noStrace) {
         this.serverPid = serverPid;
         this.clientPid = clientPid;
         this.durationSeconds = durationSeconds;
         this.outputDir = outputDir;
+        this.noStrace = noStrace;
     }
 
     public static void main(String[] args) throws Exception {
@@ -40,11 +42,12 @@ public class MetricsCollector {
         long clientPid = Long.parseLong(args[1]);
         int duration = Integer.parseInt(args[2]);
         String outDir = args.length > 3 ? args[3] : "results/default";
+        boolean noStrace = args.length > 4 && "no-strace".equals(args[4]);
 
         Path outPath = Path.of(outDir);
         Files.createDirectories(outPath);
 
-        MetricsCollector collector = new MetricsCollector(serverPid, clientPid, duration, outPath);
+        MetricsCollector collector = new MetricsCollector(serverPid, clientPid, duration, outPath, noStrace);
         collector.run();
     }
 
@@ -53,7 +56,8 @@ public class MetricsCollector {
                 " client_pid=" + clientPid + " duration=" + durationSeconds + "s");
 
         // Start strace in background for syscall summary
-        Process straceProcess = startStrace();
+        // (skip for FFM models — strace ptrace attachment crashes io_uring FFM servers)
+        Process straceProcess = noStrace ? null : startStrace();
 
         // Collect per-second metrics
         for (int sec = 1; sec <= durationSeconds && running; sec++) {
