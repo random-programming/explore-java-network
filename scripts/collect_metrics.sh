@@ -4,20 +4,21 @@ set -euo pipefail
 export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 
 # Collect system metrics in background during a benchmark run.
-# Usage: collect_metrics.sh <server_pid> <client_pid> <duration_sec> <output_dir> [port]
+# Usage: collect_metrics.sh <server_pid> <client_pid> <duration_sec> <output_dir> <port> <server_cpu_count> [no-strace]
 
-SERVER_PID="${1:?Usage: collect_metrics.sh <server_pid> <client_pid> <duration_sec> <output_dir> [port] [no-strace]}"
+SERVER_PID="${1:?Usage: collect_metrics.sh <server_pid> <client_pid> <duration_sec> <output_dir> <port> <server_cpu_count> [no-strace]}"
 CLIENT_PID="${2:?}"
 DURATION="${3:?}"
 OUTPUT_DIR="${4:?}"
-SERVER_PORT="${5:-}"
-NO_STRACE="${6:-}"
+SERVER_PORT="${5:?}"
+SERVER_CPU_COUNT="${6:?}"
+NO_STRACE="${7:-}"
 
 BENCHMARK_DIR="/ssd/benchmark"
 
 mkdir -p "$OUTPUT_DIR"
 
-echo "Collecting metrics: server=$SERVER_PID client=$CLIENT_PID duration=${DURATION}s -> $OUTPUT_DIR"
+echo "Collecting metrics: server=$SERVER_PID client=$CLIENT_PID duration=${DURATION}s port=$SERVER_PORT cpus=$SERVER_CPU_COUNT -> $OUTPUT_DIR"
 
 PERF_DATA="$OUTPUT_DIR/perf_sched.data"
 PERF_REPORT="$OUTPUT_DIR/perf_sched_latency.txt"
@@ -28,7 +29,7 @@ cleanup_perf() {
 }
 trap cleanup_perf EXIT
 
-# Find actual Java server process.
+# Find actual Java server process by port.
 # Gradle daemon runs as a separate process (not a child of the Gradle wrapper),
 # so we find the server by the port it listens on.
 find_server_pid() {
@@ -50,18 +51,35 @@ sleep 3
 REAL_SERVER_PID=$(find_server_pid "$SERVER_PORT" "$SERVER_PID")
 echo "Server PID: $SERVER_PID -> Java PID: $REAL_SERVER_PID"
 
+# Find actual Java client process (child of Gradle daemon, not wrapper).
+# Client doesn't listen on a port, so find by command line pattern.
+find_client_pid() {
+    local fallback_pid="$1"
+    local pid
+    pid=$(pgrep -f "benchmark\.client\.BenchmarkClient" 2>/dev/null | head -1)
+    if [ -n "$pid" ]; then
+        echo "$pid"
+        return
+    fi
+    echo "$fallback_pid"
+}
+
+REAL_CLIENT_PID=$(find_client_pid "$CLIENT_PID")
+echo "Client PID: $CLIENT_PID -> Java PID: $REAL_CLIENT_PID"
+
 # Run Java MetricsCollector (per-second CSV: cpu, context switches, memory, fd, strace)
-COLLECTOR_ARGS="$REAL_SERVER_PID $CLIENT_PID $DURATION $OUTPUT_DIR"
+COLLECTOR_ARGS="$REAL_SERVER_PID $REAL_CLIENT_PID $DURATION $OUTPUT_DIR"
 if [ "$NO_STRACE" = "1" ]; then
-    COLLECTOR_ARGS="$COLLECTOR_ARGS no-strace"
+    COLLECTOR_ARGS="$COLLECTOR_ARGS no-strace $SERVER_CPU_COUNT"
     echo "Strace disabled (FFM model)"
+else
+    COLLECTOR_ARGS="$COLLECTOR_ARGS unused $SERVER_CPU_COUNT"
 fi
 "$BENCHMARK_DIR/gradlew" -p "$BENCHMARK_DIR" :collector:run --args="$COLLECTOR_ARGS" --quiet 2>/dev/null &
 COLLECTOR_PID=$!
 
 # Run perf sched record for kernel scheduling delays
 # Record only the server process (-p), NOT system-wide (-a)
-# -a generates 2-4 GB per 30s test and caused disk exhaustion + system hang
 perf sched record -p "$REAL_SERVER_PID" -o "$PERF_DATA" -- sleep "$DURATION" 2>/dev/null &
 PERF_PID=$!
 

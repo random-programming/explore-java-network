@@ -22,15 +22,20 @@ PORT="${1:-8080}"
 BENCHMARK_DIR="/ssd/benchmark"
 SCRIPTS_DIR="$BENCHMARK_DIR/scripts"
 
-MODELS=(blocking nio epoll iouring)
+MODELS=(blocking nio epoll iouring iouring-ffm-mt)
 CONNECTIONS=(1 10 100 1000 10000)
 DATA_SIZES=(64 512 4096 16384 65536 131072 524288 1048576)
 CPU_CONFIGS=(1c 4c 8c)
 RUNS=2
 
+# Use results_v5 directory for the new run with fixed metrics
+export RESULTS_BASE_DIR="$BENCHMARK_DIR/results_v5"
+mkdir -p "$RESULTS_BASE_DIR"
+
 TOTAL=$((${#MODELS[@]} * ${#CONNECTIONS[@]} * ${#DATA_SIZES[@]} * ${#CPU_CONFIGS[@]} * RUNS))
 CURRENT=0
 SKIPPED=0
+FAILED=0
 START_TIME=$(date +%s)
 
 # Check how many tests already completed (for resume)
@@ -39,7 +44,7 @@ for model in "${MODELS[@]}"; do
         for conns in "${CONNECTIONS[@]}"; do
             for size in "${DATA_SIZES[@]}"; do
                 for run in $(seq 1 $RUNS); do
-                    RESULTS_DIR="$BENCHMARK_DIR/results/${model}_${cpu}_${conns}conn_${size}_run${run}"
+                    RESULTS_DIR="$RESULTS_BASE_DIR/${model}_${cpu}_${conns}conn_${size}_run${run}"
                     if [ -f "$RESULTS_DIR/throughput.csv" ] && [ -f "$RESULTS_DIR/latency.csv" ]; then
                         SKIPPED=$((SKIPPED + 1))
                     fi
@@ -51,13 +56,14 @@ done
 REMAINING_TESTS=$((TOTAL - SKIPPED))
 
 echo "================================================================"
-echo "IO Benchmark — Full Matrix"
+echo "IO Benchmark v5 — Full Matrix (fixed metrics)"
 echo "Models: ${MODELS[*]}"
 echo "Connections: ${CONNECTIONS[*]}"
 echo "Data sizes: ${DATA_SIZES[*]}"
 echo "CPU configs: ${CPU_CONFIGS[*]}"
 echo "Runs per config: $RUNS"
 echo "Total tests: $TOTAL"
+echo "Results dir: $RESULTS_BASE_DIR"
 if [ "$SKIPPED" -gt 0 ]; then
     echo "Already completed: $SKIPPED (will skip)"
     echo "Remaining: $REMAINING_TESTS"
@@ -65,12 +71,17 @@ fi
 echo "================================================================"
 echo ""
 
-send_telegram "🚀 *Benchmark started*
+send_telegram "🚀 *Benchmark v5 started*
 Tests: ${TOTAL} | Skipped: ${SKIPPED} | Remaining: ${REMAINING_TESTS}
 Models: ${MODELS[*]}
 Connections: ${CONNECTIONS[*]}
 Data sizes: ${DATA_SIZES[*]}
 CPU: ${CPU_CONFIGS[*]} | Runs: ${RUNS}"
+
+if [ "$REMAINING_TESTS" -eq 0 ]; then
+    echo "All tests already completed. Nothing to do."
+    exit 0
+fi
 
 # Initial delay — time to disconnect and free resources
 echo "Waiting 40 seconds before starting..."
@@ -94,7 +105,7 @@ for model in "${MODELS[@]}"; do
                     CURRENT=$((CURRENT + 1))
 
                     # Skip already completed tests (resume support)
-                    RESULTS_DIR="$BENCHMARK_DIR/results/${model}_${cpu}_${conns}conn_${size}_run${run}"
+                    RESULTS_DIR="$RESULTS_BASE_DIR/${model}_${cpu}_${conns}conn_${size}_run${run}"
                     if [ -f "$RESULTS_DIR/throughput.csv" ] && [ -f "$RESULTS_DIR/latency.csv" ]; then
                         echo "[$CURRENT/$TOTAL] SKIP (already done): ${model}_${cpu}_${conns}conn_${size}_run${run}"
                         continue
@@ -104,9 +115,9 @@ for model in "${MODELS[@]}"; do
                     AVAIL_GB=$(df --output=avail /ssd 2>/dev/null | tail -1 | awk '{printf "%.0f", $1/1048576}')
                     if [ "$AVAIL_GB" -lt 20 ]; then
                         echo "CRITICAL: Only ${AVAIL_GB}GB free on /ssd. Stopping to prevent system hang."
-                        send_telegram "⛔ *Benchmark STOPPED*
+                        send_telegram "⛔ *Benchmark v5 STOPPED*
 Disk space critical: ${AVAIL_GB}GB free on /ssd
-Completed: $((CURRENT - 1))/$TOTAL tests"
+Completed: $((CURRENT - 1))/$TOTAL tests | Failed: $FAILED"
                         exit 1
                     fi
 
@@ -122,7 +133,12 @@ Completed: $((CURRENT - 1))/$TOTAL tests"
                     fi
 
                     "$SCRIPTS_DIR/run_single_test.sh" \
-                        "$model" "$PORT" "$conns" "$size" "$cpu" "$run"
+                        "$model" "$PORT" "$conns" "$size" "$cpu" "$run" || {
+                        echo "WARNING: Test ${model}_${cpu}_${conns}conn_${size}_run${run} FAILED"
+                        FAILED=$((FAILED + 1))
+                        sleep 5
+                        continue
+                    }
 
                     echo ""
                 done
@@ -133,12 +149,13 @@ done
 
 TOTAL_TIME=$(( $(date +%s) - START_TIME ))
 TOTAL_MIN=$((TOTAL_TIME / 60))
-send_telegram "✅ *All benchmarks complete!*
-Total tests: ${TOTAL} | Skipped: ${SKIPPED}
+send_telegram "✅ *Benchmark v5 complete!*
+Total tests: ${TOTAL} | Skipped: ${SKIPPED} | Failed: ${FAILED}
 Total time: ${TOTAL_MIN} min
-Results: /ssd/benchmark/results/"
+Results: $RESULTS_BASE_DIR"
 
 echo "================================================================"
 echo "All benchmarks complete! Total time: ${TOTAL_MIN} minutes"
-echo "Results in: $BENCHMARK_DIR/results/"
+echo "Tests: $TOTAL | Skipped: $SKIPPED | Failed: $FAILED"
+echo "Results in: $RESULTS_BASE_DIR"
 echo "================================================================"
