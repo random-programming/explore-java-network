@@ -18,7 +18,7 @@ send_telegram() {
 # Run a single benchmark test configuration.
 # Usage: run_single_test.sh <model> <port> <connections> <data_size> <cpu_config> <run_number> [warmup] [duration]
 #
-# model:       blocking | nio | epoll | iouring
+# model:       blocking | nio | epoll | iouring | iouring-ffm-mt
 # cpu_config:  1c | 4c | 8c
 # Example:     run_single_test.sh epoll 8080 100 4096 4c 1
 
@@ -38,19 +38,22 @@ RESULTS_BASE="${RESULTS_BASE_DIR:-$BENCHMARK_DIR/results}"
 RESULTS_DIR="$RESULTS_BASE/${MODEL}_${CPU_CONFIG}_${CONNECTIONS}conn_${DATA_SIZE}_run${RUN_NUMBER}"
 mkdir -p "$RESULTS_DIR"
 
-# Determine CPU pinning
+# Determine CPU pinning and server CPU count
 case "$CPU_CONFIG" in
     1c)
         SERVER_CPUS="0"
         CLIENT_CPUS="0"
+        SERVER_CPU_COUNT=1
         ;;
     4c)
         SERVER_CPUS="0,1"
         CLIENT_CPUS="2,3"
+        SERVER_CPU_COUNT=2
         ;;
     8c)
         SERVER_CPUS="0-3"
         CLIENT_CPUS="4-7"
+        SERVER_CPU_COUNT=4
         ;;
     *)
         echo "Unknown CPU config: $CPU_CONFIG (use 1c, 4c, 8c)"
@@ -64,17 +67,16 @@ case "$MODEL" in
     nio)      SERVER_MODULE="servers:nio-server" ;;
     epoll)    SERVER_MODULE="servers:epoll-server" ;;
     iouring)  SERVER_MODULE="servers:iouring-server" ;;
-    iouring-ffm) SERVER_MODULE="servers:iouring-ffm-demo" ;;
     iouring-ffm-mt) SERVER_MODULE="servers:iouring-ffm-mt" ;;
     *)
-        echo "Unknown model: $MODEL (use blocking, nio, epoll, iouring, iouring-ffm, iouring-ffm-mt)"
+        echo "Unknown model: $MODEL (use blocking, nio, epoll, iouring, iouring-ffm-mt)"
         exit 1
         ;;
 esac
 
 echo "================================================================"
 echo "Test: model=$MODEL conns=$CONNECTIONS size=$DATA_SIZE cpu=$CPU_CONFIG run=$RUN_NUMBER"
-echo "  Server CPUs: $SERVER_CPUS  Client CPUs: $CLIENT_CPUS"
+echo "  Server CPUs: $SERVER_CPUS ($SERVER_CPU_COUNT cores)  Client CPUs: $CLIENT_CPUS"
 echo "  Warmup: ${WARMUP}s  Duration: ${DURATION}s"
 echo "  Output: $RESULTS_DIR"
 echo "================================================================"
@@ -113,7 +115,7 @@ NO_STRACE=""
 case "$MODEL" in
     iouring-ffm|iouring-ffm-mt) NO_STRACE="1" ;;
 esac
-"$BENCHMARK_DIR/scripts/collect_metrics.sh" "$SERVER_PID" "$CLIENT_PID" "$DURATION" "$RESULTS_DIR" "$PORT" "$NO_STRACE" &
+"$BENCHMARK_DIR/scripts/collect_metrics.sh" "$SERVER_PID" "$CLIENT_PID" "$DURATION" "$RESULTS_DIR" "$PORT" "$SERVER_CPU_COUNT" "$NO_STRACE" &
 COLLECTOR_PID=$!
 
 # Wait for client to finish, with safety timeout

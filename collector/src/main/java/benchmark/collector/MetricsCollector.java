@@ -17,7 +17,14 @@ public class MetricsCollector {
     private final int durationSeconds;
     private final Path outputDir;
     private final boolean noStrace;
+    private final int serverCpuCount;
     private volatile boolean running = true;
+
+    // Previous values for delta calculation
+    private long prevServerUtime = -1, prevServerStime = -1;
+    private long prevClientUtime = -1, prevClientStime = -1;
+    private long prevServerVolCs = -1, prevServerInvolCs = -1;
+    private long prevClientVolCs = -1, prevClientInvolCs = -1;
 
     // Collected data
     private final List<CpuSnapshot> cpuSnapshots = new ArrayList<>();
@@ -25,39 +32,47 @@ public class MetricsCollector {
     private final List<MemorySnapshot> memSnapshots = new ArrayList<>();
     private final List<FdSnapshot> fdSnapshots = new ArrayList<>();
 
-    public MetricsCollector(long serverPid, long clientPid, int durationSeconds, Path outputDir, boolean noStrace) {
+    public MetricsCollector(long serverPid, long clientPid, int durationSeconds,
+                            Path outputDir, boolean noStrace, int serverCpuCount) {
         this.serverPid = serverPid;
         this.clientPid = clientPid;
         this.durationSeconds = durationSeconds;
         this.outputDir = outputDir;
         this.noStrace = noStrace;
+        this.serverCpuCount = serverCpuCount;
     }
 
     public static void main(String[] args) throws Exception {
-        if (args.length < 3) {
-            System.err.println("Usage: MetricsCollector <server_pid> <client_pid> <duration_sec> [output_dir]");
+        if (args.length < 4) {
+            System.err.println("Usage: MetricsCollector <server_pid> <client_pid> <duration_sec> <output_dir> [no-strace] [server_cpu_count]");
             System.exit(1);
         }
         long serverPid = Long.parseLong(args[0]);
         long clientPid = Long.parseLong(args[1]);
         int duration = Integer.parseInt(args[2]);
-        String outDir = args.length > 3 ? args[3] : "results/default";
+        String outDir = args[3];
         boolean noStrace = args.length > 4 && "no-strace".equals(args[4]);
+        int serverCpuCount = args.length > 5 ? Integer.parseInt(args[5])
+                : Runtime.getRuntime().availableProcessors();
 
         Path outPath = Path.of(outDir);
         Files.createDirectories(outPath);
 
-        MetricsCollector collector = new MetricsCollector(serverPid, clientPid, duration, outPath, noStrace);
+        MetricsCollector collector = new MetricsCollector(
+                serverPid, clientPid, duration, outPath, noStrace, serverCpuCount);
         collector.run();
     }
 
     public void run() throws Exception {
         System.out.println("Collecting metrics: server_pid=" + serverPid +
-                " client_pid=" + clientPid + " duration=" + durationSeconds + "s");
+                " client_pid=" + clientPid + " duration=" + durationSeconds +
+                "s cpu_count=" + serverCpuCount);
 
         // Start strace in background for syscall summary
-        // (skip for FFM models — strace ptrace attachment crashes io_uring FFM servers)
         Process straceProcess = noStrace ? null : startStrace();
+
+        // Take initial readings for delta calculation
+        initDeltas();
 
         // Collect per-second metrics
         for (int sec = 1; sec <= durationSeconds && running; sec++) {
@@ -79,7 +94,6 @@ public class MetricsCollector {
         if (straceProcess != null) {
             long stracePid = straceProcess.pid();
             try {
-                // Send SIGINT to strace so it prints the syscall summary
                 new ProcessBuilder("kill", "-2", String.valueOf(stracePid))
                         .start().waitFor(2, TimeUnit.SECONDS);
             } catch (Exception ignored) {}
@@ -104,67 +118,105 @@ public class MetricsCollector {
         running = false;
     }
 
-    // ── CPU via pidstat ──
+    // ── Initialize previous values for delta calculation ──
+
+    private void initDeltas() {
+        try {
+            long[] sv = readProcStatTimes(serverPid);
+            prevServerUtime = sv[0];
+            prevServerStime = sv[1];
+        } catch (Exception ignored) {}
+        try {
+            long[] cl = readProcStatTimes(clientPid);
+            prevClientUtime = cl[0];
+            prevClientStime = cl[1];
+        } catch (Exception ignored) {}
+        try {
+            long[] sv = readContextSwitchesRaw(serverPid);
+            prevServerVolCs = sv[0];
+            prevServerInvolCs = sv[1];
+        } catch (Exception ignored) {}
+        try {
+            long[] cl = readContextSwitchesRaw(clientPid);
+            prevClientVolCs = cl[0];
+            prevClientInvolCs = cl[1];
+        } catch (Exception ignored) {}
+    }
+
+    // ── CPU via /proc/pid/stat delta ──
 
     private CpuSnapshot collectCpu(int sec) {
         double serverUser = 0, serverSys = 0;
         double clientUser = 0, clientSys = 0;
         try {
-            double[] sv = pidstatCpu(serverPid);
-            serverUser = sv[0];
-            serverSys = sv[1];
+            long[] sv = readProcStatTimes(serverPid);
+            if (prevServerUtime >= 0) {
+                long deltaU = sv[0] - prevServerUtime;
+                long deltaS = sv[1] - prevServerStime;
+                // Convert ticks to percentage of server CPUs over 1 second
+                // 100 ticks/sec = 1 second. Delta ticks / 100 = seconds of CPU.
+                // Percentage = (seconds_of_cpu / available_seconds) * 100
+                // available_seconds = 1 sec * serverCpuCount
+                serverUser = (deltaU * 100.0) / (100.0 * serverCpuCount);
+                serverSys = (deltaS * 100.0) / (100.0 * serverCpuCount);
+            }
+            prevServerUtime = sv[0];
+            prevServerStime = sv[1];
         } catch (Exception ignored) {}
         try {
-            double[] cl = pidstatCpu(clientPid);
-            clientUser = cl[0];
-            clientSys = cl[1];
+            long[] cl = readProcStatTimes(clientPid);
+            if (prevClientUtime >= 0) {
+                long deltaU = cl[0] - prevClientUtime;
+                long deltaS = cl[1] - prevClientStime;
+                clientUser = (deltaU * 100.0) / (100.0 * serverCpuCount);
+                clientSys = (deltaS * 100.0) / (100.0 * serverCpuCount);
+            }
+            prevClientUtime = cl[0];
+            prevClientStime = cl[1];
         } catch (Exception ignored) {}
         return new CpuSnapshot(sec, serverUser, serverSys, serverUser + serverSys,
                 clientUser, clientSys, clientUser + clientSys);
     }
 
-    private double[] pidstatCpu(long pid) throws Exception {
-        // pidstat -p <pid> 1 1 — one sample over 1 second
-        // We use /proc/stat instead for instant snapshot to avoid blocking
+    private long[] readProcStatTimes(long pid) throws Exception {
         Path statPath = Path.of("/proc/" + pid + "/stat");
-        if (!Files.exists(statPath)) return new double[]{0, 0};
+        if (!Files.exists(statPath)) return new long[]{0, 0};
 
         String stat = Files.readString(statPath).trim();
-        // Fields after last ')': state, ppid, pgrp, session, tty_nr, tpgid, flags,
-        //   minflt, cminflt, majflt, cmajflt, utime(13), stime(14), ...
         int closeParenIdx = stat.lastIndexOf(')');
         String[] fields = stat.substring(closeParenIdx + 2).split("\\s+");
-        long utime = Long.parseLong(fields[11]); // index 13 in full, 11 after ')'
-        long stime = Long.parseLong(fields[12]); // index 14 in full, 12 after ')'
-
-        long ticksPerSec = 100; // standard on Linux (sysconf(_SC_CLK_TCK))
-        int cpuCount = Runtime.getRuntime().availableProcessors();
-
-        // Return as percentage of total CPU
-        double userPct = (utime * 100.0) / (ticksPerSec * cpuCount);
-        double sysPct = (stime * 100.0) / (ticksPerSec * cpuCount);
-        return new double[]{userPct, sysPct};
+        long utime = Long.parseLong(fields[11]);
+        long stime = Long.parseLong(fields[12]);
+        return new long[]{utime, stime};
     }
 
-    // ── Context switches via /proc/pid/status ──
+    // ── Context switches via /proc/pid/status (delta) ──
 
     private ContextSwitchSnapshot collectContextSwitches(int sec) {
         long serverVol = 0, serverInvol = 0;
         long clientVol = 0, clientInvol = 0;
         try {
-            long[] sv = readContextSwitches(serverPid);
-            serverVol = sv[0];
-            serverInvol = sv[1];
+            long[] sv = readContextSwitchesRaw(serverPid);
+            if (prevServerVolCs >= 0) {
+                serverVol = sv[0] - prevServerVolCs;
+                serverInvol = sv[1] - prevServerInvolCs;
+            }
+            prevServerVolCs = sv[0];
+            prevServerInvolCs = sv[1];
         } catch (Exception ignored) {}
         try {
-            long[] cl = readContextSwitches(clientPid);
-            clientVol = cl[0];
-            clientInvol = cl[1];
+            long[] cl = readContextSwitchesRaw(clientPid);
+            if (prevClientVolCs >= 0) {
+                clientVol = cl[0] - prevClientVolCs;
+                clientInvol = cl[1] - prevClientInvolCs;
+            }
+            prevClientVolCs = cl[0];
+            prevClientInvolCs = cl[1];
         } catch (Exception ignored) {}
         return new ContextSwitchSnapshot(sec, serverVol, serverInvol, clientVol, clientInvol);
     }
 
-    private long[] readContextSwitches(long pid) throws IOException {
+    private long[] readContextSwitchesRaw(long pid) throws IOException {
         Path statusPath = Path.of("/proc/" + pid + "/status");
         long voluntary = 0, involuntary = 0;
         for (String line : Files.readAllLines(statusPath)) {
@@ -208,7 +260,6 @@ public class MetricsCollector {
     }
 
     private long parseProcKb(String line) {
-        // Format: "VmRSS:     12345 kB"
         String[] parts = line.split("\\s+");
         return Long.parseLong(parts[1]);
     }
@@ -269,7 +320,6 @@ public class MetricsCollector {
                     continue;
                 }
                 if (inTable && !line.isEmpty()) {
-                    // Format: % time     seconds  usecs/call     calls    errors syscall
                     String[] parts = line.split("\\s+");
                     if (parts.length >= 6) {
                         String pctTime = parts[0];

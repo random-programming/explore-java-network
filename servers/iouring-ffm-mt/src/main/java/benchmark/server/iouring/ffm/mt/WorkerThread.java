@@ -24,7 +24,7 @@ public class WorkerThread extends Thread {
     private static final int RING_ENTRIES = 4096;
     private static final int FIXED_BUF_COUNT = 2048;
     private static final int FIXED_BUF_SIZE = 4096;
-    private static final boolean USE_SQPOLL = true;
+    private static final boolean USE_SQPOLL = false;
     private static final int SQPOLL_IDLE_MS = 1000;
 
     private final int workerId;
@@ -238,16 +238,14 @@ public class WorkerThread extends Thread {
         String request = new String(requestBytes, StandardCharsets.US_ASCII);
 
         int dataSize = parseSize(request);
-        boolean keepAlive = parseKeepAlive(request);
 
-        // Select the right pre-built response template
-        Map<Integer, MemorySegment> responseMap = keepAlive ? keepAliveResponses : closeResponses;
-        MemorySegment response = responseMap.get(dataSize);
+        // Always use Connection: close to match other server models
+        MemorySegment response = closeResponses.get(dataSize);
         if (response == null) {
-            response = responseMap.get(64);
+            response = closeResponses.get(64);
         }
 
-        cs.keepAlive = keepAlive;
+        cs.keepAlive = false;
         cs.sendResponse = response;
         cs.sendTotal = (int) response.byteSize();
         cs.sendOffset = 0;

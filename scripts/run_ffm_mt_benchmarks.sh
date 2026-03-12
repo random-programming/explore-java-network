@@ -22,6 +22,10 @@ PORT="${1:-8080}"
 BENCHMARK_DIR="/ssd/benchmark"
 SCRIPTS_DIR="$BENCHMARK_DIR/scripts"
 
+# Use results_v5 directory for the new run with fixed metrics
+export RESULTS_BASE_DIR="$BENCHMARK_DIR/results_v5"
+mkdir -p "$RESULTS_BASE_DIR"
+
 MODEL="iouring-ffm-mt"
 CONNECTIONS=(1 10 100 1000 10000)
 DATA_SIZES=(64 512 4096 16384 65536 131072 524288 1048576)
@@ -39,7 +43,7 @@ for cpu in "${CPU_CONFIGS[@]}"; do
     for conns in "${CONNECTIONS[@]}"; do
         for size in "${DATA_SIZES[@]}"; do
             for run in $(seq 1 $RUNS); do
-                RESULTS_DIR="$BENCHMARK_DIR/results/${MODEL}_${cpu}_${conns}conn_${size}_run${run}"
+                RESULTS_DIR="$RESULTS_BASE_DIR/${MODEL}_${cpu}_${conns}conn_${size}_run${run}"
                 if [ -f "$RESULTS_DIR/throughput.csv" ] && [ -f "$RESULTS_DIR/latency.csv" ]; then
                     SKIPPED=$((SKIPPED + 1))
                 fi
@@ -50,7 +54,7 @@ done
 REMAINING_TESTS=$((TOTAL - SKIPPED))
 
 echo "================================================================"
-echo "IO Benchmark — FFM-MT io_uring Tests"
+echo "IO Benchmark v5 — FFM-MT io_uring Tests"
 echo "Model: $MODEL"
 echo "Connections: ${CONNECTIONS[*]}"
 echo "Data sizes: ${DATA_SIZES[*]}"
@@ -97,7 +101,7 @@ for cpu in "${CPU_CONFIGS[@]}"; do
                 CURRENT=$((CURRENT + 1))
 
                 # Skip already completed tests (resume support)
-                RESULTS_DIR="$BENCHMARK_DIR/results/${MODEL}_${cpu}_${conns}conn_${size}_run${run}"
+                RESULTS_DIR="$RESULTS_BASE_DIR/${MODEL}_${cpu}_${conns}conn_${size}_run${run}"
                 if [ -f "$RESULTS_DIR/throughput.csv" ] && [ -f "$RESULTS_DIR/latency.csv" ]; then
                     echo "[$CURRENT/$TOTAL] SKIP (already done): ${MODEL}_${cpu}_${conns}conn_${size}_run${run}"
                     continue

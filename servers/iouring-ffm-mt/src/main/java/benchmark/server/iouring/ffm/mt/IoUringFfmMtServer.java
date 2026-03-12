@@ -27,7 +27,7 @@ public class IoUringFfmMtServer {
     public static void main(String[] args) throws Throwable {
         int port = args.length > 0 ? Integer.parseInt(args[0]) : 8080;
         int numWorkers = args.length > 1 ? Integer.parseInt(args[1])
-                : Math.max(1, Runtime.getRuntime().availableProcessors() / 2);
+                : Runtime.getRuntime().availableProcessors();
 
         System.out.println("io_uring FFM Multi-Threaded Server");
         System.out.println("  Port: " + port);
