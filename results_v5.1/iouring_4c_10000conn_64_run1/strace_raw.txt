@@ -1,0 +1,65 @@
+strace: Process 3001548 attached with 47 threads
+strace: pid 3001564: entering, ptrace_syscall_info.op == 2
+strace: Process 3001744 detached
+strace: Process 3001745 detached
+strace: Process 3001743 detached
+strace: Process 3001746 detached
+strace: Process 3001742 detached
+strace: Process 3001741 detached
+strace: Process 3001740 detached
+strace: Process 3001739 detached
+strace: Process 3001738 detached
+strace: Process 3001737 detached
+strace: Process 3001736 detached
+strace: Process 3001735 detached
+strace: Process 3001734 detached
+strace: Process 3001733 detached
+strace: Process 3001732 detached
+strace: Process 3001730 detached
+strace: Process 3001583 detached
+strace: Process 3001581 detached
+strace: Process 3001580 detached
+strace: Process 3001577 detached
+strace: Process 3001576 detached
+strace: Process 3001575 detached
+strace: Process 3001574 detached
+strace: Process 3001573 detached
+strace: Process 3001572 detached
+strace: Process 3001571 detached
+strace: Process 3001570 detached
+strace: Process 3001569 detached
+strace: Process 3001568 detached
+strace: Process 3001567 detached
+strace: Process 3001566 detached
+strace: Process 3001565 detached
+strace: Process 3001564 detached
+strace: Process 3001563 detached
+strace: Process 3001562 detached
+strace: Process 3001561 detached
+strace: Process 3001560 detached
+strace: Process 3001559 detached
+strace: Process 3001558 detached
+strace: Process 3001557 detached
+strace: Process 3001556 detached
+strace: Process 3001555 detached
+strace: Process 3001554 detached
+strace: Process 3001553 detached
+strace: Process 3001552 detached
+strace: Process 3001551 detached
+strace: Process 3001548 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 47.05  199.395610         205    971293           io_uring_enter
+  0.52    2.192614           5    416451           setsockopt
+  0.36    1.512531           5    277634           getsockname
+  0.12    0.492495           3    140228           write
+ 50.72  214.933610       82666      2600       913 futex
+  0.00    0.000341          10        33           getrusage
+  0.00    0.000315          45         7           mmap
+  0.00    0.000039           6         6           gettid
+  1.24    5.235154      872525         6         6 restart_syscall
+  0.00    0.000074          37         2           mprotect
+  0.00    0.000184         184         1           madvise
+  0.00    0.000012          12         1           clock_nanosleep
+------ ----------- ----------- --------- --------- ----------------
+100.00  423.762979         234   1808262       919 total

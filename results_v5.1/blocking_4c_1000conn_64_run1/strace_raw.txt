@@ -1,0 +1,98 @@
+strace: Process 2832873 attached with 62 threads
+strace: Process 2833330 attached
+strace: Process 2833074 detached
+strace: Process 2833076 detached
+strace: Process 2833075 detached
+strace: Process 2833072 detached
+strace: Process 2833071 detached
+strace: Process 2833070 detached
+strace: Process 2833069 detached
+strace: Process 2833068 detached
+strace: Process 2833067 detached
+strace: Process 2833066 detached
+strace: Process 2833065 detached
+strace: Process 2833064 detached
+strace: Process 2833063 detached
+strace: Process 2833062 detached
+strace: Process 2833061 detached
+strace: Process 2833060 detached
+strace: Process 2833055 detached
+strace: Process 2833053 detached
+strace: Process 2833051 detached
+strace: Process 2833049 detached
+strace: Process 2833048 detached
+strace: Process 2833047 detached
+strace: Process 2833046 detached
+strace: Process 2833045 detached
+strace: Process 2833044 detached
+strace: Process 2833043 detached
+strace: Process 2833042 detached
+strace: Process 2833041 detached
+strace: Process 2833040 detached
+strace: Process 2833039 detached
+strace: Process 2833038 detached
+strace: Process 2833037 detached
+strace: Process 2832906 detached
+strace: Process 2832905 detached
+strace: Process 2832902 detached
+strace: Process 2832901 detached
+strace: Process 2832900 detached
+strace: Process 2832899 detached
+strace: Process 2832898 detached
+strace: Process 2832897 detached
+strace: Process 2832896 detached
+strace: Process 2832895 detached
+strace: Process 2832894 detached
+strace: Process 2832893 detached
+strace: Process 2832892 detached
+strace: Process 2832891 detached
+strace: Process 2832890 detached
+strace: Process 2832889 detached
+strace: Process 2832888 detached
+strace: Process 2832887 detached
+strace: Process 2832886 detached
+strace: Process 2832885 detached
+strace: Process 2832884 detached
+strace: Process 2832883 detached
+strace: Process 2832882 detached
+strace: Process 2832881 detached
+strace: Process 2832880 detached
+strace: Process 2832879 detached
+strace: Process 2832878 detached
+strace: Process 2832877 detached
+strace: Process 2832876 detached
+strace: Process 2832873 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 18.64  120.330974          49   2442644        48 read
+ 71.85  463.883280        4095    113280       865 futex
+  0.80    5.176377          46    111057           fcntl
+  0.53    3.428208          46     74038           getsockname
+  0.64    4.152662          56     74018       684 write
+  0.29    1.902003          51     37021           close
+  0.27    1.766419          47     37020       684 shutdown
+  0.25    1.605324          43     37020           getsockopt
+  0.29    1.894649          51     37019           setsockopt
+  0.34    2.205708          59     37018           accept
+  0.00    0.023922          33       708           rt_sigprocmask
+  0.00    0.023656          33       700       684 rt_sigreturn
+  0.00    0.013214          63       209           mprotect
+  0.00    0.004643          55        83           gettid
+  5.11   32.979803      867889        38           poll
+  0.00    0.001214          39        31           getrusage
+  0.96    6.203515     1033919         6         6 restart_syscall
+  0.00    0.000351          70         5           sched_getaffinity
+  0.00    0.000218          43         5         4 openat
+  0.00    0.000280          70         4           pread64
+  0.00    0.000161          80         2           mmap
+  0.00    0.000153          76         2           clock_nanosleep
+  0.00    0.000044          44         1           fstat
+  0.00    0.000088          88         1           sched_yield
+  0.00    0.000091          91         1           madvise
+  0.00    0.000050          50         1           sysinfo
+  0.00    0.000063          63         1           prctl
+  0.00    0.000067          67         1           set_robust_list
+  0.00    0.000068          68         1           rseq
+  0.00    0.002151        2151         1           clone3
+------ ----------- ----------- --------- --------- ------------------
+100.00  645.599356         215   3001936      2975 total

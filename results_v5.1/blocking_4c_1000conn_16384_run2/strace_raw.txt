@@ -1,0 +1,98 @@
+strace: Process 2873099 attached with 62 threads
+strace: Process 2890843 attached
+strace: Process 2890844 attached
+strace: Process 2890845 attached
+strace: Process 2875668 detached
+strace: Process 2875670 detached
+strace: Process 2875669 detached
+strace: Process 2875667 detached
+strace: Process 2875666 detached
+strace: Process 2875665 detached
+strace: Process 2875664 detached
+strace: Process 2875663 detached
+strace: Process 2875661 detached
+strace: Process 2875660 detached
+strace: Process 2875658 detached
+strace: Process 2875657 detached
+strace: Process 2875656 detached
+strace: Process 2875653 detached
+strace: Process 2875651 detached
+strace: Process 2875650 detached
+strace: Process 2875638 detached
+strace: Process 2875637 detached
+strace: Process 2875635 detached
+strace: Process 2875634 detached
+strace: Process 2875633 detached
+strace: Process 2875632 detached
+strace: Process 2875631 detached
+strace: Process 2875630 detached
+strace: Process 2875629 detached
+strace: Process 2875628 detached
+strace: Process 2875627 detached
+strace: Process 2875626 detached
+strace: Process 2875625 detached
+strace: Process 2875624 detached
+strace: Process 2875623 detached
+strace: Process 2875622 detached
+strace: Process 2873164 detached
+strace: Process 2873163 detached
+strace: Process 2873155 detached
+strace: Process 2873154 detached
+strace: Process 2873153 detached
+strace: Process 2873152 detached
+strace: Process 2873151 detached
+strace: Process 2873150 detached
+strace: Process 2873149 detached
+strace: Process 2873148 detached
+strace: Process 2873145 detached
+strace: Process 2873134 detached
+strace: Process 2873133 detached
+strace: Process 2873122 detached
+strace: Process 2873121 detached
+strace: Process 2873120 detached
+strace: Process 2873119 detached
+strace: Process 2873118 detached
+strace: Process 2873117 detached
+strace: Process 2873116 detached
+strace: Process 2873115 detached
+strace: Process 2873114 detached
+strace: Process 2873113 detached
+strace: Process 2873112 detached
+strace: Process 2873111 detached
+strace: Process 2873109 detached
+strace: Process 2873108 detached
+strace: Process 2873107 detached
+strace: Process 2873102 detached
+strace: Process 2873099 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 21.23  125.078915          70   1776388        38 read
+ 69.09  407.063980        5135     79271       858 futex
+  0.94    5.540611          71     77229           fcntl
+  0.69    4.071974          79     51490       633 write
+  0.61    3.571255          69     51482           getsockname
+  0.31    1.825299          70     25749           close
+  0.32    1.863189          72     25749       634 shutdown
+  0.28    1.678385          65     25749           getsockopt
+  0.31    1.819686          70     25744           setsockopt
+  0.32    1.870411          72     25740           accept
+  0.00    0.026996          40       672           rt_sigprocmask
+  0.00    0.023465          36       648       633 rt_sigreturn
+  0.00    0.006995          78        89           mprotect
+  0.00    0.003584          99        36           gettid
+  3.96   23.338235      666806        35           poll
+  0.00    0.001575          52        30           getrusage
+  0.00    0.000550          78         7           sched_getaffinity
+  0.00    0.000387          64         6           mmap
+  0.00    0.001264         210         6           madvise
+  1.93   11.362152     1893692         6         6 restart_syscall
+  0.00    0.000188          62         3           sched_yield
+  0.00    0.000165          55         3           prctl
+  0.00    0.000495         165         3           clock_nanosleep
+  0.00    0.000297          99         3           set_robust_list
+  0.00    0.000206          68         3           rseq
+  0.00    0.006727        2242         3           clone3
+  0.00    0.000079          79         1           pread64
+  0.00    0.000060          60         1           sysinfo
+------ ----------- ----------- --------- --------- ------------------
+100.00  589.157125         271   2166146      2802 total

@@ -1,0 +1,42 @@
+strace: Process 2895632 attached with 69 threads
+strace: Process 2896178 attached
+strace: Process 2896179 attached
+strace: Process 2896180 attached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 93.23    4.944965        2213      2234       877 futex
+  0.02    0.001264          14        86           rt_sigprocmask
+  0.00    0.000000           0        76           read
+  0.00    0.000000           0        50           lseek
+  0.02    0.001070          32        33           mmap
+  0.01    0.000542          18        30           getrusage
+  0.02    0.000855          37        23           madvise
+  0.00    0.000008           0        21         1 rt_sigreturn
+  0.00    0.000000           0        19           fstat
+  0.00    0.000037           1        19           pread64
+  0.00    0.000000           0        18        18 readlink
+  4.55    0.241247       17231        14        14 restart_syscall
+  0.00    0.000106           8        13           sched_getaffinity
+  0.00    0.000004           0        13         2 newfstatat
+  0.01    0.000689          57        12           munmap
+  0.00    0.000000           0        11           openat
+  0.00    0.000109          12         9           gettid
+  0.00    0.000000           0         8           statx
+  0.00    0.000034           6         5           mprotect
+  0.00    0.000179          44         4           close
+  0.00    0.000003           1         3           prctl
+  0.00    0.000004           1         3           set_robust_list
+  0.00    0.000003           1         3           rseq
+  0.00    0.000030          10         3           clone3
+  0.00    0.000000           0         2           sysinfo
+  0.00    0.000055          55         1           write
+  0.00    0.000000           0         1           sched_yield
+  0.00    0.000000           0         1           dup2
+  0.00    0.000017          17         1           getpid
+  2.12    0.112565      112565         1         1 accept
+  0.00    0.000000           0         1           getcwd
+  0.00    0.000018          18         1           unlink
+  0.00    0.000000           0         1           clock_nanosleep
+  0.00    0.000024          24         1           tgkill
+------ ----------- ----------- --------- --------- ------------------
+100.00    5.303828        1949      2721       913 total

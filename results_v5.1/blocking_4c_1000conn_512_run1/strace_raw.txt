@@ -1,0 +1,100 @@
+strace: Process 2834164 attached with 62 threads
+strace: Process 2834612 attached
+strace: Process 2834613 attached
+strace: Process 2834614 attached
+strace: Process 2834366 detached
+strace: Process 2834368 detached
+strace: Process 2834367 detached
+strace: Process 2834365 detached
+strace: Process 2834364 detached
+strace: Process 2834363 detached
+strace: Process 2834362 detached
+strace: Process 2834361 detached
+strace: Process 2834360 detached
+strace: Process 2834359 detached
+strace: Process 2834357 detached
+strace: Process 2834355 detached
+strace: Process 2834354 detached
+strace: Process 2834353 detached
+strace: Process 2834352 detached
+strace: Process 2834351 detached
+strace: Process 2834345 detached
+strace: Process 2834341 detached
+strace: Process 2834340 detached
+strace: Process 2834339 detached
+strace: Process 2834338 detached
+strace: Process 2834337 detached
+strace: Process 2834336 detached
+strace: Process 2834335 detached
+strace: Process 2834334 detached
+strace: Process 2834333 detached
+strace: Process 2834332 detached
+strace: Process 2834331 detached
+strace: Process 2834330 detached
+strace: Process 2834329 detached
+strace: Process 2834328 detached
+strace: Process 2834327 detached
+strace: Process 2834196 detached
+strace: Process 2834195 detached
+strace: Process 2834193 detached
+strace: Process 2834192 detached
+strace: Process 2834191 detached
+strace: Process 2834190 detached
+strace: Process 2834189 detached
+strace: Process 2834188 detached
+strace: Process 2834187 detached
+strace: Process 2834186 detached
+strace: Process 2834185 detached
+strace: Process 2834184 detached
+strace: Process 2834183 detached
+strace: Process 2834182 detached
+strace: Process 2834181 detached
+strace: Process 2834180 detached
+strace: Process 2834179 detached
+strace: Process 2834178 detached
+strace: Process 2834177 detached
+strace: Process 2834176 detached
+strace: Process 2834175 detached
+strace: Process 2834174 detached
+strace: Process 2834173 detached
+strace: Process 2834172 detached
+strace: Process 2834171 detached
+strace: Process 2834170 detached
+strace: Process 2834169 detached
+strace: Process 2834168 detached
+strace: Process 2834167 detached
+strace: Process 2834164 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 21.23  123.777370          49   2485560        79 read
+ 66.50  387.757429        3416    113498       868 futex
+  0.89    5.173097          46    111328           fcntl
+  0.63    3.699944          49     74216           getsockname
+  0.73    4.239654          57     74199       596 write
+  0.34    1.990588          53     37116           close
+  0.32    1.863799          50     37115       596 shutdown
+  0.28    1.605871          43     37115           getsockopt
+  0.34    1.984908          53     37110           setsockopt
+  0.36    2.125247          57     37108           accept
+  0.00    0.019570          30       636           rt_sigprocmask
+  0.00    0.018254          29       612       596 rt_sigreturn
+  6.88   40.135010      617461        65           poll
+  0.00    0.002742          78        35           gettid
+  0.00    0.001269          42        30           getrusage
+  0.00    0.001003          62        16           mprotect
+  0.00    0.000365          45         8           sched_getaffinity
+  0.00    0.000328          54         6           mmap
+  1.49    8.689084     1448180         6         6 restart_syscall
+  0.00    0.000235          47         5         4 openat
+  0.00    0.000125          31         4           pread64
+  0.00    0.000385         128         3           sched_yield
+  0.00    0.000201          67         3           madvise
+  0.00    0.000113          37         3           prctl
+  0.00    0.000163          54         3           set_robust_list
+  0.00    0.000180          60         3           rseq
+  0.00    0.005694        1898         3           clone3
+  0.00    0.000043          43         1           fstat
+  0.00    0.000000           0         1           sysinfo
+  0.00    0.000193         193         1           clock_nanosleep
+------ ----------- ----------- --------- --------- ------------------
+100.00  583.092864         191   3045809      2745 total

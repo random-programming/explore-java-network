@@ -1,0 +1,73 @@
+strace: Process 2996323 attached with 47 threads
+strace: Process 2996804 attached
+strace: Process 2996507 detached
+strace: Process 2996510 detached
+strace: Process 2996511 detached
+strace: Process 2996509 detached
+strace: Process 2996508 detached
+strace: Process 2996506 detached
+strace: Process 2996505 detached
+strace: Process 2996504 detached
+strace: Process 2996503 detached
+strace: Process 2996502 detached
+strace: Process 2996501 detached
+strace: Process 2996500 detached
+strace: Process 2996499 detached
+strace: Process 2996498 detached
+strace: Process 2996497 detached
+strace: Process 2996495 detached
+strace: Process 2996358 detached
+strace: Process 2996356 detached
+strace: Process 2996355 detached
+strace: Process 2996352 detached
+strace: Process 2996351 detached
+strace: Process 2996350 detached
+strace: Process 2996349 detached
+strace: Process 2996348 detached
+strace: Process 2996347 detached
+strace: Process 2996346 detached
+strace: Process 2996345 detached
+strace: Process 2996344 detached
+strace: Process 2996343 detached
+strace: Process 2996342 detached
+strace: Process 2996341 detached
+strace: Process 2996340 detached
+strace: Process 2996339 detached
+strace: Process 2996338 detached
+strace: Process 2996337 detached
+strace: Process 2996336 detached
+strace: Process 2996335 detached
+strace: Process 2996334 detached
+strace: Process 2996333 detached
+strace: Process 2996332 detached
+strace: Process 2996331 detached
+strace: Process 2996330 detached
+strace: Process 2996329 detached
+strace: Process 2996328 detached
+strace: Process 2996327 detached
+strace: Process 2996326 detached
+strace: Process 2996323 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 47.69  150.603878         234    643456           io_uring_enter
+  0.68    2.142945           7    275751           setsockopt
+  0.26    0.823272           4    183834           getsockname
+  0.12    0.391712           4     92374           write
+ 50.37  159.079732       49774      3196      1355 futex
+  0.00    0.006548          13       492           getrusage
+  0.00    0.001428          24        59           mprotect
+  0.00    0.000069           8         8           rt_sigprocmask
+  0.87    2.754189      393455         7         7 restart_syscall
+  0.00    0.000103          20         5           mmap
+  0.00    0.000009           2         4           gettid
+  0.00    0.000733         366         2           madvise
+  0.00    0.000018           9         2           sched_getaffinity
+  0.00    0.000000           0         1           sched_yield
+  0.00    0.000034          34         1           sysinfo
+  0.00    0.000000           0         1           prctl
+  0.00    0.000018          18         1           clock_nanosleep
+  0.00    0.000007           7         1           set_robust_list
+  0.00    0.000021          21         1           rseq
+  0.00    0.001888        1888         1           clone3
+------ ----------- ----------- --------- --------- ------------------
+100.00  315.806604         263   1199197      1362 total
