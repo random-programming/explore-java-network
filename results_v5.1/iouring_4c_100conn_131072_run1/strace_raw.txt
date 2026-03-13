@@ -1,0 +1,62 @@
+strace: Process 2987460 attached with 47 threads
+strace: Process 2987643 detached
+strace: Process 2987646 detached
+strace: Process 2987645 detached
+strace: Process 2987644 detached
+strace: Process 2987642 detached
+strace: Process 2987641 detached
+strace: Process 2987640 detached
+strace: Process 2987639 detached
+strace: Process 2987637 detached
+strace: Process 2987634 detached
+strace: Process 2987633 detached
+strace: Process 2987632 detached
+strace: Process 2987631 detached
+strace: Process 2987630 detached
+strace: Process 2987629 detached
+strace: Process 2987628 detached
+strace: Process 2987495 detached
+strace: Process 2987493 detached
+strace: Process 2987492 detached
+strace: Process 2987489 detached
+strace: Process 2987488 detached
+strace: Process 2987487 detached
+strace: Process 2987486 detached
+strace: Process 2987485 detached
+strace: Process 2987484 detached
+strace: Process 2987483 detached
+strace: Process 2987482 detached
+strace: Process 2987481 detached
+strace: Process 2987480 detached
+strace: Process 2987479 detached
+strace: Process 2987478 detached
+strace: Process 2987477 detached
+strace: Process 2987476 detached
+strace: Process 2987475 detached
+strace: Process 2987474 detached
+strace: Process 2987473 detached
+strace: Process 2987472 detached
+strace: Process 2987471 detached
+strace: Process 2987470 detached
+strace: Process 2987469 detached
+strace: Process 2987468 detached
+strace: Process 2987467 detached
+strace: Process 2987466 detached
+strace: Process 2987465 detached
+strace: Process 2987464 detached
+strace: Process 2987463 detached
+strace: Process 2987460 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 46.66  128.631249         253    506770           io_uring_enter
+  0.77    2.130211           9    217179           setsockopt
+  0.21    0.574802           3    144786           getsockname
+  0.14    0.382360           5     73068           write
+ 51.40  141.701831       50535      2804      1202 futex
+  0.00    0.004566          12       368           getrusage
+  0.82    2.265632      323661         7         7 restart_syscall
+  0.00    0.000009           3         3           gettid
+  0.00    0.000048          24         2           mprotect
+  0.00    0.000003           3         1           mmap
+------ ----------- ----------- --------- --------- ----------------
+100.00  275.690711         291    944988      1209 total

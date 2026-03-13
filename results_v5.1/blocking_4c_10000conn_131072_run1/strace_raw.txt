@@ -1,0 +1,97 @@
+strace: Process 2899553 attached with 62 threads
+strace: pid 2899731: entering, ptrace_syscall_info.op == 2
+strace: Process 2900057 attached
+strace: Process 2900070 attached
+strace: Process 2899556 detached
+strace: Process 2899723 detached
+strace: Process 2899724 detached
+strace: Process 2899725 detached
+strace: Process 2899727 detached
+strace: Process 2899730 detached
+strace: Process 2899733 detached
+strace: Process 2899735 detached
+strace: Process 2899736 detached
+strace: Process 2899740 detached
+strace: Process 2899748 detached
+strace: Process 2899752 detached
+strace: Process 2899755 detached
+strace: Process 2899756 detached
+strace: Process 2899757 detached
+strace: Process 2899758 detached
+strace: Process 2899760 detached
+strace: Process 2899761 detached
+strace: Process 2899754 detached
+strace: Process 2899753 detached
+strace: Process 2899750 detached
+strace: Process 2899749 detached
+strace: Process 2899747 detached
+strace: Process 2899746 detached
+strace: Process 2899738 detached
+strace: Process 2899734 detached
+strace: Process 2899732 detached
+strace: Process 2899731 detached
+strace: Process 2899729 detached
+strace: Process 2899728 detached
+strace: Process 2899726 detached
+strace: Process 2899585 detached
+strace: Process 2899584 detached
+strace: Process 2899582 detached
+strace: Process 2899581 detached
+strace: Process 2899580 detached
+strace: Process 2899579 detached
+strace: Process 2899578 detached
+strace: Process 2899577 detached
+strace: Process 2899576 detached
+strace: Process 2899575 detached
+strace: Process 2899574 detached
+strace: Process 2899573 detached
+strace: Process 2899572 detached
+strace: Process 2899571 detached
+strace: Process 2899570 detached
+strace: Process 2899569 detached
+strace: Process 2899568 detached
+strace: Process 2899567 detached
+strace: Process 2899566 detached
+strace: Process 2899565 detached
+strace: Process 2899564 detached
+strace: Process 2899563 detached
+strace: Process 2899562 detached
+strace: Process 2899561 detached
+strace: Process 2899560 detached
+strace: Process 2899559 detached
+strace: Process 2899558 detached
+strace: Process 2899557 detached
+strace: Process 2899553 detached
+strace: Process 2899762 detached
+strace: Process 2899759 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 15.31   87.093409          62   1387863        21 read
+ 79.97  455.019632        7398     61505       858 futex
+  0.61    3.494461          58     59554           fcntl
+  0.75    4.284559          92     46340      2231 write
+  0.39    2.235368          56     39704           getsockname
+  0.32    1.818050          91     19851           accept
+  0.23    1.281001          64     19851           setsockopt
+  0.23    1.297830          65     19846           close
+  0.22    1.229317          61     19846      2230 shutdown
+  0.20    1.129485          56     19846           getsockopt
+  0.02    0.087175          38      2247           rt_sigprocmask
+  0.01    0.084959          38      2230      2230 rt_sigreturn
+  0.00    0.000338           4        70           mprotect
+  0.00    0.001199          38        31           getrusage
+  0.00    0.001128          56        20           gettid
+  1.12    6.390510      336342        19           poll
+  0.62    3.535379      235691        15         6 restart_syscall
+  0.00    0.000177          35         5           sched_getaffinity
+  0.00    0.000172          43         4           mmap
+  0.00    0.000294          98         3           madvise
+  0.00    0.000063          31         2           sched_yield
+  0.00    0.000061          30         2           sysinfo
+  0.00    0.000060          30         2           prctl
+  0.00    0.000063          31         2           set_robust_list
+  0.00    0.000063          31         2           rseq
+  0.00    0.002831        1415         2           clone3
+  0.00    0.000006           6         1           pread64
+------ ----------- ----------- --------- --------- ------------------
+100.00  568.987590         334   1698863      7576 total

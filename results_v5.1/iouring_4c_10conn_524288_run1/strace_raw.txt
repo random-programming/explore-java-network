@@ -1,0 +1,66 @@
+strace: Process 2979951 attached with 47 threads
+strace: Process 2980131 detached
+strace: Process 2980132 detached
+strace: Process 2980133 detached
+strace: Process 2980130 detached
+strace: Process 2980129 detached
+strace: Process 2980128 detached
+strace: Process 2980125 detached
+strace: Process 2980124 detached
+strace: Process 2980123 detached
+strace: Process 2980122 detached
+strace: Process 2980121 detached
+strace: Process 2980120 detached
+strace: Process 2980119 detached
+strace: Process 2980118 detached
+strace: Process 2980117 detached
+strace: Process 2980116 detached
+strace: Process 2979986 detached
+strace: Process 2979983 detached
+strace: Process 2979982 detached
+strace: Process 2979980 detached
+strace: Process 2979979 detached
+strace: Process 2979978 detached
+strace: Process 2979977 detached
+strace: Process 2979976 detached
+strace: Process 2979975 detached
+strace: Process 2979974 detached
+strace: Process 2979973 detached
+strace: Process 2979972 detached
+strace: Process 2979971 detached
+strace: Process 2979970 detached
+strace: Process 2979969 detached
+strace: Process 2979968 detached
+strace: Process 2979967 detached
+strace: Process 2979966 detached
+strace: Process 2979965 detached
+strace: Process 2979964 detached
+strace: Process 2979963 detached
+strace: Process 2979962 detached
+strace: Process 2979961 detached
+strace: Process 2979960 detached
+strace: Process 2979959 detached
+strace: Process 2979958 detached
+strace: Process 2979957 detached
+strace: Process 2979956 detached
+strace: Process 2979955 detached
+strace: Process 2979954 detached
+strace: Process 2979951 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 48.42  287.440602         369    776892           io_uring_enter
+  0.44    2.598787           7    332952           setsockopt
+  0.18    1.081815           4    221968           getsockname
+  0.47    2.788861          24    112399           write
+ 49.09  291.438396      113444      2569       996 futex
+  0.00    0.000442          13        33           getrusage
+  0.00    0.000349          58         6           read
+  0.00    0.000035           5         6           lseek
+  1.41    8.343340     1390556         6         6 restart_syscall
+  0.00    0.000109          27         4           gettid
+  0.00    0.000007           1         4           sched_getaffinity
+  0.00    0.000070          23         3         3 newfstatat
+  0.00    0.000116          58         2           mprotect
+  0.00    0.000014           7         2           sched_yield
+------ ----------- ----------- --------- --------- ------------------
+100.00  593.692943         410   1446846      1005 total

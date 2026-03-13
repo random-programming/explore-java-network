@@ -1,0 +1,81 @@
+strace: Process 3003440 attached with 47 threads
+strace: pid 3003460: entering, ptrace_syscall_info.op == 2
+strace: pid 3003471: entering, ptrace_syscall_info.op == 2
+strace: Process 3003881 attached
+strace: Process 3003882 attached
+strace: Process 3003883 attached
+strace: Process 3003884 attached
+strace: Process 3003885 attached
+strace: Process 3003886 attached
+strace: Process 3003887 attached
+strace: Process 3003633 detached
+strace: Process 3003635 detached
+strace: Process 3003634 detached
+strace: Process 3003632 detached
+strace: Process 3003631 detached
+strace: Process 3003630 detached
+strace: Process 3003629 detached
+strace: Process 3003628 detached
+strace: Process 3003627 detached
+strace: Process 3003626 detached
+strace: Process 3003625 detached
+strace: Process 3003624 detached
+strace: Process 3003623 detached
+strace: Process 3003622 detached
+strace: Process 3003621 detached
+strace: Process 3003619 detached
+strace: Process 3003475 detached
+strace: Process 3003472 detached
+strace: Process 3003471 detached
+strace: Process 3003469 detached
+strace: Process 3003468 detached
+strace: Process 3003467 detached
+strace: Process 3003466 detached
+strace: Process 3003465 detached
+strace: Process 3003464 detached
+strace: Process 3003463 detached
+strace: Process 3003462 detached
+strace: Process 3003461 detached
+strace: Process 3003460 detached
+strace: Process 3003459 detached
+strace: Process 3003458 detached
+strace: Process 3003457 detached
+strace: Process 3003456 detached
+strace: Process 3003455 detached
+strace: Process 3003454 detached
+strace: Process 3003453 detached
+strace: Process 3003452 detached
+strace: Process 3003451 detached
+strace: Process 3003450 detached
+strace: Process 3003449 detached
+strace: Process 3003448 detached
+strace: Process 3003447 detached
+strace: Process 3003446 detached
+strace: Process 3003445 detached
+strace: Process 3003444 detached
+strace: Process 3003443 detached
+strace: Process 3003440 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 46.15  192.615269         246    780601           io_uring_enter
+  0.54    2.254653           6    334584           setsockopt
+  0.33    1.359417           6    223056           getsockname
+  0.14    0.567770           4    113629           write
+ 51.71  215.839756       68673      3143      1033 futex
+  0.00    0.008664          44       194           mprotect
+  0.00    0.000773          13        56           rt_sigprocmask
+  0.00    0.000497          15        33           getrusage
+  0.00    0.000920          43        21           mmap
+  0.00    0.000109           7        14           gettid
+  0.00    0.000163          11        14           sched_getaffinity
+  0.00    0.001141         114        10           madvise
+  0.00    0.000120          15         8           sched_yield
+  0.00    0.000102          14         7           prctl
+  0.00    0.000089          12         7           set_robust_list
+  0.00    0.000103          14         7           rseq
+  0.00    0.011232        1604         7           clone3
+  1.13    4.735876      789312         6         6 restart_syscall
+  0.00    0.000030          15         2           sysinfo
+  0.00    0.000019           9         2           clock_nanosleep
+------ ----------- ----------- --------- --------- ------------------
+100.00  417.396703         286   1455401      1039 total

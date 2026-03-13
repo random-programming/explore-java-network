@@ -1,0 +1,66 @@
+strace: Process 2942409 attached with 47 threads
+strace: Process 2942590 detached
+strace: Process 2942593 detached
+strace: Process 2942592 detached
+strace: Process 2942591 detached
+strace: Process 2942589 detached
+strace: Process 2942588 detached
+strace: Process 2942584 detached
+strace: Process 2942583 detached
+strace: Process 2942582 detached
+strace: Process 2942581 detached
+strace: Process 2942580 detached
+strace: Process 2942579 detached
+strace: Process 2942578 detached
+strace: Process 2942577 detached
+strace: Process 2942576 detached
+strace: Process 2942575 detached
+strace: Process 2942444 detached
+strace: Process 2942441 detached
+strace: Process 2942440 detached
+strace: Process 2942438 detached
+strace: Process 2942437 detached
+strace: Process 2942436 detached
+strace: Process 2942435 detached
+strace: Process 2942434 detached
+strace: Process 2942433 detached
+strace: Process 2942432 detached
+strace: Process 2942431 detached
+strace: Process 2942430 detached
+strace: Process 2942429 detached
+strace: Process 2942428 detached
+strace: Process 2942427 detached
+strace: Process 2942426 detached
+strace: Process 2942425 detached
+strace: Process 2942424 detached
+strace: Process 2942423 detached
+strace: Process 2942422 detached
+strace: Process 2942421 detached
+strace: Process 2942420 detached
+strace: Process 2942419 detached
+strace: Process 2942418 detached
+strace: Process 2942417 detached
+strace: Process 2942416 detached
+strace: Process 2942415 detached
+strace: Process 2942414 detached
+strace: Process 2942413 detached
+strace: Process 2942412 detached
+strace: Process 2942409 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+  0.47    2.363443           5    399336           setsockopt
+  0.58    2.890061           7    399336           epoll_ctl
+ 42.28  210.725454         791    266368           epoll_wait
+  0.36    1.791143           6    266224           getsockname
+  0.24    1.193744           4    266224           getsockopt
+  0.15    0.750216           5    133129           write
+  0.44    2.193434          16    133113           close
+  0.30    1.485515          11    133113         1 accept4
+  0.43    2.126798          15    133112           writev
+  0.14    0.704092           5    133112           recvfrom
+ 54.40  271.118263      106112      2555       958 futex
+  0.00    0.000477          14        34           getrusage
+  0.21    1.035036      172506         6         4 restart_syscall
+  0.00    0.000006           1         4           gettid
+------ ----------- ----------- --------- --------- ----------------
+100.00  498.377682         219   2265666       963 total

@@ -1,0 +1,94 @@
+strace: Process 2896979 attached with 62 threads
+strace: Process 2897464 attached
+strace: Process 2897187 detached
+strace: Process 2897189 detached
+strace: Process 2897188 detached
+strace: Process 2897186 detached
+strace: Process 2897185 detached
+strace: Process 2897184 detached
+strace: Process 2897183 detached
+strace: Process 2897182 detached
+strace: Process 2897181 detached
+strace: Process 2897180 detached
+strace: Process 2897179 detached
+strace: Process 2897178 detached
+strace: Process 2897177 detached
+strace: Process 2897176 detached
+strace: Process 2897175 detached
+strace: Process 2897174 detached
+strace: Process 2897173 detached
+strace: Process 2897172 detached
+strace: Process 2897171 detached
+strace: Process 2897170 detached
+strace: Process 2897169 detached
+strace: Process 2897168 detached
+strace: Process 2897166 detached
+strace: Process 2897165 detached
+strace: Process 2897163 detached
+strace: Process 2897162 detached
+strace: Process 2897159 detached
+strace: Process 2897158 detached
+strace: Process 2897157 detached
+strace: Process 2897156 detached
+strace: Process 2897155 detached
+strace: Process 2897150 detached
+strace: Process 2897011 detached
+strace: Process 2897010 detached
+strace: Process 2897008 detached
+strace: Process 2897007 detached
+strace: Process 2897006 detached
+strace: Process 2897005 detached
+strace: Process 2897004 detached
+strace: Process 2897003 detached
+strace: Process 2897002 detached
+strace: Process 2897001 detached
+strace: Process 2897000 detached
+strace: Process 2896999 detached
+strace: Process 2896998 detached
+strace: Process 2896997 detached
+strace: Process 2896996 detached
+strace: Process 2896995 detached
+strace: Process 2896994 detached
+strace: Process 2896993 detached
+strace: Process 2896992 detached
+strace: Process 2896991 detached
+strace: Process 2896990 detached
+strace: Process 2896989 detached
+strace: Process 2896988 detached
+strace: Process 2896987 detached
+strace: Process 2896986 detached
+strace: Process 2896985 detached
+strace: Process 2896984 detached
+strace: Process 2896983 detached
+strace: Process 2896982 detached
+strace: Process 2896979 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 18.15  122.958276          52   2350085        35 read
+ 75.97  514.570389        4784    107559       836 futex
+  0.76    5.131831          48    105784           fcntl
+  0.63    4.246437          60     70560      2671 write
+  0.54    3.676539          52     70468           getsockname
+  0.29    1.971337          55     35281           close
+  0.28    1.870935          53     35281      2672 shutdown
+  0.24    1.618892          45     35281           getsockopt
+  0.29    1.958270          55     35275           setsockopt
+  0.33    2.243697          63     35233           accept
+  0.01    0.096019          35      2679           rt_sigprocmask
+  0.01    0.099612          37      2671      2671 rt_sigreturn
+  0.00    0.003832          39        97           mprotect
+  2.14   14.524377      414982        35           poll
+  0.00    0.001317          42        31           getrusage
+  0.00    0.000655          43        15           gettid
+  0.35    2.362807      337543         7         4 restart_syscall
+  0.00    0.000046          15         3           sched_getaffinity
+  0.00    0.000070          35         2           mmap
+  0.00    0.000726         363         2           madvise
+  0.00    0.000017          17         1           sched_yield
+  0.00    0.000050          50         1           sysinfo
+  0.00    0.000027          27         1           prctl
+  0.00    0.000017          17         1           set_robust_list
+  0.00    0.000016          16         1           rseq
+  0.00    0.001737        1737         1           clone3
+------ ----------- ----------- --------- --------- ------------------
+100.00  677.337928         234   2886355      8889 total

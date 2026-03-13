@@ -1,0 +1,77 @@
+strace: Process 3006010 attached with 47 threads
+strace: pid 3006192: entering, ptrace_syscall_info.op == 2
+strace: pid 3006042: entering, ptrace_syscall_info.op == 2
+strace: pid 3006190: entering, ptrace_syscall_info.op == 2
+strace: Process 3006501 attached
+strace: Process 3006502 attached
+strace: Process 3006203 detached
+strace: Process 3006204 detached
+strace: Process 3006202 detached
+strace: Process 3006201 detached
+strace: Process 3006200 detached
+strace: Process 3006199 detached
+strace: Process 3006198 detached
+strace: Process 3006197 detached
+strace: Process 3006196 detached
+strace: Process 3006194 detached
+strace: Process 3006193 detached
+strace: Process 3006192 detached
+strace: Process 3006191 detached
+strace: Process 3006190 detached
+strace: Process 3006188 detached
+strace: Process 3006185 detached
+strace: Process 3006045 detached
+strace: Process 3006042 detached
+strace: Process 3006041 detached
+strace: Process 3006039 detached
+strace: Process 3006038 detached
+strace: Process 3006037 detached
+strace: Process 3006036 detached
+strace: Process 3006035 detached
+strace: Process 3006034 detached
+strace: Process 3006033 detached
+strace: Process 3006032 detached
+strace: Process 3006031 detached
+strace: Process 3006030 detached
+strace: Process 3006029 detached
+strace: Process 3006028 detached
+strace: Process 3006027 detached
+strace: Process 3006026 detached
+strace: Process 3006025 detached
+strace: Process 3006024 detached
+strace: Process 3006023 detached
+strace: Process 3006022 detached
+strace: Process 3006021 detached
+strace: Process 3006020 detached
+strace: Process 3006019 detached
+strace: Process 3006018 detached
+strace: Process 3006017 detached
+strace: Process 3006016 detached
+strace: Process 3006015 detached
+strace: Process 3006014 detached
+strace: Process 3006013 detached
+strace: Process 3006010 detached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 57.49   74.093396         871     85030           io_uring_enter
+  0.76    0.981332          29     33426           setsockopt
+  0.52    0.674135          30     22284           getsockname
+  0.30    0.382627          33     11268           write
+ 27.25   35.123528       14117      2488      1001 futex
+  0.00    0.004561          24       190           getrusage
+  0.00    0.000141           8        17           rt_sigprocmask
+  0.00    0.000850          77        11           mmap
+ 13.66   17.608764     2201095         8         6 restart_syscall
+  0.00    0.000133          19         7           gettid
+  0.00    0.000077          15         5           sched_getaffinity
+  0.00    0.001160         386         3           madvise
+  0.00    0.000019           9         2           mprotect
+  0.00    0.000022          11         2           sched_yield
+  0.00    0.000000           0         2           sysinfo
+  0.00    0.000021          10         2           prctl
+  0.00    0.000014           7         2           set_robust_list
+  0.00    0.000016           8         2           rseq
+  0.00    0.002883        1441         2           clone3
+  0.00    0.000006           6         1           rt_sigreturn
+------ ----------- ----------- --------- --------- ------------------
+100.00  128.873685         832    154752      1007 total
