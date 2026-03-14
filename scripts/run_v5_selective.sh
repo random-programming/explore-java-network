@@ -15,7 +15,7 @@ send_telegram() {
         -d text="${message}" >/dev/null 2>&1 || true
 }
 
-# Selective benchmark v5.1: 5 models, 4c only, all conn, all sizes
+# Selective benchmark v5.2: 5 models, 4c only, all conn, all sizes
 # - 1 run for all connections
 # - 2nd run for key points: 100 and 1000 connections
 # Total: 5 × 5 × 8 × 1 + 5 × 2 × 8 × 1 = 200 + 80 = 280 tests
@@ -32,7 +32,7 @@ CPU_CONFIG="4c"
 # Connections that get a 2nd run for statistical validation
 KEY_CONNECTIONS=(100 1000)
 
-export RESULTS_BASE_DIR="$BENCHMARK_DIR/results_v5.1"
+export RESULTS_BASE_DIR="$BENCHMARK_DIR/results_v5.2"
 mkdir -p "$RESULTS_BASE_DIR"
 
 # Calculate total: all conn × run1 + key conn × run2
@@ -77,7 +77,7 @@ done
 REMAINING_TESTS=$((TOTAL - SKIPPED))
 
 echo "================================================================"
-echo "IO Benchmark v5.1 — Selective (4c, 2nd run for 100/1000 conn)"
+echo "IO Benchmark v5.2 — Selective (4c, 2nd run for 100/1000 conn)"
 echo "Models: ${MODELS[*]}"
 echo "Connections: ${CONNECTIONS[*]}"
 echo "Key connections (2 runs): ${KEY_CONNECTIONS[*]}"
@@ -92,7 +92,7 @@ fi
 echo "================================================================"
 echo ""
 
-send_telegram "🚀 *Benchmark v5.1 selective started*
+send_telegram "🚀 *Benchmark v5.2 selective started*
 Tests: ${TOTAL} (200 + 80 key) | Skipped: ${SKIPPED} | Remaining: ${REMAINING_TESTS}
 Models: ${MODELS[*]}
 CPU: 4c | 2nd run: 100, 1000 conn"
@@ -134,7 +134,7 @@ for model in "${MODELS[@]}"; do
                 AVAIL_GB=$(df --output=avail /ssd 2>/dev/null | tail -1 | awk '{printf "%.0f", $1/1048576}')
                 if [ "$AVAIL_GB" -lt 20 ]; then
                     echo "CRITICAL: Only ${AVAIL_GB}GB free on /ssd. Stopping."
-                    send_telegram "⛔ *Benchmark v5.1 selective STOPPED*
+                    send_telegram "⛔ *Benchmark v5.2 selective STOPPED*
 Disk space critical: ${AVAIL_GB}GB free
 Completed: $((CURRENT - 1))/$TOTAL | Failed: $FAILED"
                     exit 1
@@ -167,7 +167,7 @@ done
 
 TOTAL_TIME=$(( $(date +%s) - START_TIME ))
 TOTAL_MIN=$((TOTAL_TIME / 60))
-send_telegram "✅ *Benchmark v5.1 selective complete!*
+send_telegram "✅ *Benchmark v5.2 selective complete!*
 Total: ${TOTAL} | Skipped: ${SKIPPED} | Failed: ${FAILED}
 Time: ${TOTAL_MIN} min
 Results: $RESULTS_BASE_DIR"

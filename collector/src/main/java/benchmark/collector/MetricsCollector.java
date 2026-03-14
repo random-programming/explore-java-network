@@ -153,12 +153,10 @@ public class MetricsCollector {
             if (prevServerUtime >= 0) {
                 long deltaU = sv[0] - prevServerUtime;
                 long deltaS = sv[1] - prevServerStime;
-                // Convert ticks to percentage of server CPUs over 1 second
-                // 100 ticks/sec = 1 second. Delta ticks / 100 = seconds of CPU.
-                // Percentage = (seconds_of_cpu / available_seconds) * 100
-                // available_seconds = 1 sec * serverCpuCount
-                serverUser = (deltaU * 100.0) / (100.0 * serverCpuCount);
-                serverSys = (deltaS * 100.0) / (100.0 * serverCpuCount);
+                if (deltaU >= 0 && deltaS >= 0) {
+                    serverUser = (deltaU * 100.0) / (100.0 * serverCpuCount);
+                    serverSys = (deltaS * 100.0) / (100.0 * serverCpuCount);
+                }
             }
             prevServerUtime = sv[0];
             prevServerStime = sv[1];
@@ -168,8 +166,10 @@ public class MetricsCollector {
             if (prevClientUtime >= 0) {
                 long deltaU = cl[0] - prevClientUtime;
                 long deltaS = cl[1] - prevClientStime;
-                clientUser = (deltaU * 100.0) / (100.0 * serverCpuCount);
-                clientSys = (deltaS * 100.0) / (100.0 * serverCpuCount);
+                if (deltaU >= 0 && deltaS >= 0) {
+                    clientUser = (deltaU * 100.0) / (100.0 * serverCpuCount);
+                    clientSys = (deltaS * 100.0) / (100.0 * serverCpuCount);
+                }
             }
             prevClientUtime = cl[0];
             prevClientStime = cl[1];
@@ -179,15 +179,38 @@ public class MetricsCollector {
     }
 
     private long[] readProcStatTimes(long pid) throws Exception {
-        Path statPath = Path.of("/proc/" + pid + "/stat");
-        if (!Files.exists(statPath)) return new long[]{0, 0};
-
-        String stat = Files.readString(statPath).trim();
-        int closeParenIdx = stat.lastIndexOf(')');
-        String[] fields = stat.substring(closeParenIdx + 2).split("\\s+");
-        long utime = Long.parseLong(fields[11]);
-        long stime = Long.parseLong(fields[12]);
-        return new long[]{utime, stime};
+        // Sum CPU times across ALL threads in /proc/PID/task/*/stat
+        // Reading only /proc/PID/stat returns aggregate for the process,
+        // but /proc/PID/task/TID/stat gives per-thread times which we sum
+        // for consistency with context switches collection.
+        Path taskDir = Path.of("/proc/" + pid + "/task");
+        long totalUtime = 0, totalStime = 0;
+        if (Files.isDirectory(taskDir)) {
+            try (var threads = Files.newDirectoryStream(taskDir)) {
+                for (Path threadDir : threads) {
+                    Path statPath = threadDir.resolve("stat");
+                    try {
+                        String stat = Files.readString(statPath).trim();
+                        int closeParenIdx = stat.lastIndexOf(')');
+                        String[] fields = stat.substring(closeParenIdx + 2).split("\\s+");
+                        totalUtime += Long.parseLong(fields[11]);
+                        totalStime += Long.parseLong(fields[12]);
+                    } catch (IOException ignored) {
+                        // Thread may have exited
+                    }
+                }
+            }
+        } else {
+            // Fallback: read main process stat
+            Path statPath = Path.of("/proc/" + pid + "/stat");
+            if (!Files.exists(statPath)) return new long[]{0, 0};
+            String stat = Files.readString(statPath).trim();
+            int closeParenIdx = stat.lastIndexOf(')');
+            String[] fields = stat.substring(closeParenIdx + 2).split("\\s+");
+            totalUtime = Long.parseLong(fields[11]);
+            totalStime = Long.parseLong(fields[12]);
+        }
+        return new long[]{totalUtime, totalStime};
     }
 
     // ── Context switches via /proc/pid/status (delta) ──
@@ -217,13 +240,37 @@ public class MetricsCollector {
     }
 
     private long[] readContextSwitchesRaw(long pid) throws IOException {
-        Path statusPath = Path.of("/proc/" + pid + "/status");
+        // Sum context switches across ALL threads in /proc/PID/task/*/status
+        // Reading only /proc/PID/status returns CS for the main thread only,
+        // missing 99%+ of switches from worker threads.
+        Path taskDir = Path.of("/proc/" + pid + "/task");
         long voluntary = 0, involuntary = 0;
-        for (String line : Files.readAllLines(statusPath)) {
-            if (line.startsWith("voluntary_ctxt_switches:")) {
-                voluntary = Long.parseLong(line.split(":\\s+")[1].trim());
-            } else if (line.startsWith("nonvoluntary_ctxt_switches:")) {
-                involuntary = Long.parseLong(line.split(":\\s+")[1].trim());
+        if (Files.isDirectory(taskDir)) {
+            try (var threads = Files.newDirectoryStream(taskDir)) {
+                for (Path threadDir : threads) {
+                    Path statusPath = threadDir.resolve("status");
+                    try {
+                        for (String line : Files.readAllLines(statusPath)) {
+                            if (line.startsWith("voluntary_ctxt_switches:")) {
+                                voluntary += Long.parseLong(line.split(":\\s+")[1].trim());
+                            } else if (line.startsWith("nonvoluntary_ctxt_switches:")) {
+                                involuntary += Long.parseLong(line.split(":\\s+")[1].trim());
+                            }
+                        }
+                    } catch (IOException ignored) {
+                        // Thread may have exited between listing and reading
+                    }
+                }
+            }
+        } else {
+            // Fallback to main thread only
+            Path statusPath = Path.of("/proc/" + pid + "/status");
+            for (String line : Files.readAllLines(statusPath)) {
+                if (line.startsWith("voluntary_ctxt_switches:")) {
+                    voluntary = Long.parseLong(line.split(":\\s+")[1].trim());
+                } else if (line.startsWith("nonvoluntary_ctxt_switches:")) {
+                    involuntary = Long.parseLong(line.split(":\\s+")[1].trim());
+                }
             }
         }
         return new long[]{voluntary, involuntary};
