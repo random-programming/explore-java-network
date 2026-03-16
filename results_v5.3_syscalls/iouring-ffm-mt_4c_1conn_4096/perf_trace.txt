@@ -1,0 +1,234 @@
+
+ Summary of events:
+
+ Service Thread (285112), 4 events, 0.0%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex                  2      0     0.001     0.000     0.000     0.001    100.00%
+
+
+ C1 CompilerThre (285115), 8 events, 0.0%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex                  4      2  5000.089     0.000  1250.022  5000.088    100.00%
+
+
+ C2 CompilerThre (285114), 10 events, 0.0%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex                  5      3  5000.092     0.000  1000.018  5000.088    100.00%
+
+
+ C2 CompilerThre (285276), 14 events, 0.0%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   mmap                   1      0     0.012     0.012     0.012     0.012      0.00%
+   madvise                1      0     0.004     0.004     0.004     0.004      0.00%
+   futex                  3      1     0.003     0.000     0.001     0.002     55.47%
+   rt_sigprocmask         2      0     0.002     0.001     0.001     0.001      0.73%
+
+
+ VM Thread (285108), 40 events, 0.0%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex                 20     10  9000.554     0.000   450.028  1000.068     25.36%
+
+
+ G1 Service (285106), 60 events, 0.0%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex                 20     10  9000.544     0.000   450.027  1000.065     25.36%
+   getrusage             10      0     0.010     0.001     0.001     0.002      7.95%
+
+
+ Monitor Deflati (285113), 159 events, 0.0%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex                 79     40  9752.143     0.000   123.445   250.105     11.47%
+
+
+ VM Periodic Tas (285107), 798 events, 0.1%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex                398    200  9960.422     0.000    25.026    50.093      5.02%
+
+
+ worker-1 (285122), 50598 events, 5.7%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18866   9458  9988.208     0.000     0.529     2.109      0.72%
+   io_uring_enter      6434      0    16.244     0.001     0.003     0.025      1.70%
+   mprotect               2      0     0.014     0.003     0.007     0.010     50.07%
+
+
+ worker-3 (285124), 50615 events, 5.7%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18868   9455  9967.394     0.000     0.528     1.071      0.72%
+   io_uring_enter      6434      0    16.502     0.001     0.003     0.023      1.70%
+   mprotect               2      0     0.010     0.002     0.005     0.008     56.98%
+
+
+ worker-9 (285130), 50632 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18865   9453  9968.460     0.000     0.528     1.109      0.72%
+   io_uring_enter      6448      0    16.316     0.001     0.003     0.017      1.70%
+   mprotect               2      0     0.012     0.002     0.006     0.010     67.90%
+
+
+ worker-12 (285133), 50632 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18894   9461  9966.983     0.000     0.528     1.113      0.72%
+   io_uring_enter      6418      0    16.156     0.001     0.003     0.022      1.74%
+   mprotect               2      0     0.011     0.002     0.006     0.009     57.79%
+
+
+ worker-5 (285126), 50635 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18875   9455  9969.491     0.000     0.528     1.119      0.72%
+   io_uring_enter      6429      0    16.378     0.001     0.003     0.023      1.72%
+   mprotect               2      0     0.011     0.002     0.005     0.009     71.36%
+
+
+ worker-6 (285127), 50636 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18874   9458  9974.642     0.000     0.528     2.107      0.72%
+   io_uring_enter      6441      0    16.098     0.001     0.002     0.024      1.72%
+   mprotect               2      0     0.011     0.003     0.006     0.008     49.58%
+
+
+ worker-15 (285136), 50640 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18887   9458  9969.719     0.000     0.528     1.116      0.72%
+   io_uring_enter      6422      0    16.104     0.001     0.003     0.033      1.74%
+   mprotect               2      0     0.011     0.002     0.005     0.009     63.11%
+
+
+ worker-14 (285135), 50642 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18890   9456  9971.552     0.000     0.528     1.119      0.72%
+   io_uring_enter      6435      0    16.932     0.001     0.003     0.022      1.77%
+   mprotect               2      0     0.010     0.001     0.005     0.008     71.63%
+
+
+ worker-2 (285123), 50644 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18884   9457  9970.200     0.000     0.528     1.116      0.72%
+   io_uring_enter      6442      0    15.866     0.001     0.002     0.023      1.69%
+
+
+ worker-10 (285131), 50648 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18880   9458  9967.946     0.000     0.528     2.108      0.72%
+   io_uring_enter      6449      0    15.995     0.001     0.002     0.024      1.72%
+
+
+ worker-13 (285134), 50648 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18881   9460  9970.863     0.000     0.528     1.116      0.72%
+   io_uring_enter      6435      0    16.152     0.001     0.003     0.020      1.73%
+
+
+ worker-0 (285121), 50657 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18880   9456  9973.228     0.000     0.528     1.110      0.72%
+   io_uring_enter      6455      0    16.161     0.001     0.003     0.029      1.70%
+
+
+ worker-11 (285132), 50664 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18900   9458  9967.020     0.000     0.527     1.093      0.72%
+   io_uring_enter      6432      0    16.242     0.001     0.003     0.024      1.72%
+
+
+ worker-4 (285125), 50665 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18886   9460  9967.284     0.000     0.528     1.115      0.72%
+   io_uring_enter      6439      0    16.140     0.001     0.003     0.025      1.72%
+   mprotect               2      0     0.009     0.001     0.005     0.008     73.12%
+
+
+ worker-8 (285129), 50667 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18894   9459  9967.259     0.000     0.528     1.109      0.72%
+   io_uring_enter      6444      0    16.291     0.001     0.003     0.022      1.72%
+   mprotect               2      0     0.011     0.002     0.006     0.009     59.93%
+
+
+ worker-7 (285128), 50675 events, 5.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   futex              18889   9460  9966.784     0.000     0.528     1.125      0.72%
+   io_uring_enter      6447      0    16.255     0.001     0.003     0.024      1.73%
+   mprotect               3      0     0.012     0.001     0.004     0.009     65.49%
+
+
+ java (285089), 68888 events, 7.8%
+
+   syscall            calls  errors  total       min       avg       max       stddev
+                                     (msec)    (msec)    (msec)    (msec)        (%)
+   --------------- --------  ------ -------- --------- --------- ---------     ------
+   io_uring_enter     34449      0  9965.480     0.000     0.289     1.413      0.67%
+
+

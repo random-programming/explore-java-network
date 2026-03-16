@@ -110,11 +110,8 @@ echo "Client PID: $CLIENT_PID"
 # Start metrics collector (skip warmup, measure only active phase)
 echo "Starting metrics collector..."
 sleep "$WARMUP"
-# Disable strace for FFM models — ptrace attachment crashes io_uring FFM servers
-NO_STRACE=""
-case "$MODEL" in
-    iouring-ffm|iouring-ffm-mt) NO_STRACE="1" ;;
-esac
+# Disable strace for ALL models — ptrace overhead degrades throughput 3-13x
+NO_STRACE="1"
 "$BENCHMARK_DIR/scripts/collect_metrics.sh" "$SERVER_PID" "$CLIENT_PID" "$DURATION" "$RESULTS_DIR" "$PORT" "$SERVER_CPU_COUNT" "$NO_STRACE" &
 COLLECTOR_PID=$!
 
